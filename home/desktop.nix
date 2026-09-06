@@ -27,6 +27,7 @@
     brave # Web browser
     vscode # Code editor (GUI IDE)
     obsidian # Markdown vault
+    obs-studio # Screen recording and streaming
 
     libnotify # Desktop notifications
     wl-clipboard # Wayland clipboard
