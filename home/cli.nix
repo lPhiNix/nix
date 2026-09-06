@@ -25,5 +25,7 @@
     jq # JSON interpreter
 
     trash-cli # Move files to trash
+
+    yubikey-manager # YubiKey device manager (ykman)
   ];
 }
