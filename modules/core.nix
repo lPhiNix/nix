@@ -38,10 +38,22 @@
     };
     # No channels; the flake is the single source of truth.
     channel.enable = false;
+
+    # Automatic garbage collection: delete generations and store paths
+    # older than 7 days (the generation active then is preserved).
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # Boot via systemd-boot and let nixos-rebuild manage EFI vars.
-  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader.systemd-boot = {
+    enable = lib.mkDefault true;
+    # Keep only the 5 most recent generations in the boot menu.
+    configurationLimit = lib.mkDefault 5;
+  };
   boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
   # Manage networking via NetworkManager.
