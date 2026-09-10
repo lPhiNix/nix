@@ -38,17 +38,23 @@
     # Architecture targeted by this configuration.
     system = "x86_64-linux";
 
-    # Build a host: its own file plus the shared system modules.
-    mkHost = {
-      path,
-      system ? "x86_64-linux",
-    }:
+    # --- Host discovery ---
+    # Every subdirectory of hosts/ that contains a default.nix is a machine.
+    hostEntries = builtins.readDir ./hosts;
+    isHost = name:
+      hostEntries.${name}
+      == "directory"
+      && builtins.pathExists ./hosts/${name}/default.nix;
+    hostNames = builtins.filter isHost (builtins.attrNames hostEntries);
+
+    # Build a host: its own directory plus the shared system modules.
+    mkHost = name:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs;};
         modules = [
-          # Host-specific configuration file.
-          path
+          # Host-specific configuration (hosts/<name>/default.nix).
+          ./hosts/${name}
 
           # Shared system modules.
           ./modules/core.nix
@@ -73,9 +79,7 @@
     # Overlays consumed by modules/core.nix.
     overlays = import ./overlays {inherit inputs;};
 
-    # Real machines built from this flake.
-    nixosConfigurations = {
-      noir = mkHost {path = ./hosts/noir/configuration.nix;};
-    };
+    # Real machines, discovered automatically from hosts/.
+    nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
   };
 }
