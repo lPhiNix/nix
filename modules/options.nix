@@ -48,6 +48,13 @@ in {
       description = "TTY keymap (does not affect Hyprland).";
     };
 
+    # Machine profiles: each profile enables sensible defaults for that kind of host.
+    profiles = mkOption {
+      type = types.listOf (types.enum ["laptop" "desktop" "server"]);
+      default = [];
+      description = "Machine profiles; each profile enables sensible defaults.";
+    };
+
     # GPU selection and optional PRIME offload.
     gpu = {
       # Primary GPU vendor; null disables all GPU configuration.

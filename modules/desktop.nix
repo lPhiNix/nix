@@ -21,10 +21,6 @@
     # Hyprland Wayland compositor.
     programs.hyprland.enable = true;
 
-    # Power daemons: battery reporting and CPU profiles.
-    services.upower.enable = true;
-    services.power-profiles-daemon.enable = true;
-
     # Bluetooth support for devices and audio.
     hardware.bluetooth.enable = true;
 

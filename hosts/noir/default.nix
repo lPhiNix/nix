@@ -14,6 +14,7 @@
     hostName = "noir";
     username = "phinix";
     consoleKeyMap = "es";
+    profiles = ["laptop"];
     gpu = {
       provider = "nvidia";
       prime = {
@@ -24,14 +25,7 @@
     };
   };
 
-  # Enable the shared system modules required by this host.
-  modules = {
-    desktop.enable = true;
-    audio.enable = true;
-    network.enable = true;
-    gaming.enable = true;
-    home.enable = true;
-  };
+  modules.gaming.enable = true;
 
   system.stateVersion = "26.05";
 }

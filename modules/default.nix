@@ -12,6 +12,7 @@
 #
 {config, ...}: {
   imports = [
+    # Modules: shared, reusable system modules.
     ./options.nix
     ./core.nix
     ./graphics.nix
@@ -19,9 +20,15 @@
     ./network.nix
     ./desktop.nix
     ./gaming.nix
+    ./power.nix
+
+    # Profiles: per-machine-type defaults for the features above.
+    ./profiles/laptop.nix
+    ./profiles/desktop.nix
+    ./profiles/server.nix
   ];
 
-  # Translate myConfig into system configuration (Options module).
+  # Translate myConfig into system configuration.
   networking.hostName = config.myConfig.hostName;
   time.timeZone = config.myConfig.timezone;
   console.keyMap = config.myConfig.consoleKeyMap;
