@@ -56,13 +56,8 @@
           # Host-specific configuration (hosts/<name>/default.nix).
           ./hosts/${name}
 
-          # Shared system modules.
-          ./modules/core.nix
-          ./modules/desktop.nix
-          ./modules/audio.nix
-          ./modules/network.nix
-          ./modules/graphics.nix
-          ./modules/gaming.nix
+          # Shared system modules + myConfig translation.
+          ./modules
 
           # Home-manager integration and the home configuration.
           home-manager.nixosModules.home-manager

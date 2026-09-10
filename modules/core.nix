@@ -6,8 +6,11 @@
 # ------------------------------------
 # Nix core module by lPhiNix
 #
+# Provides the base system configuration shared by every machine: nixpkgs
+# policy, the Nix daemon, the bootloader, networking, firmware, udev rules
+# and locales. Host-specific values are provided through myConfig.
+#
 {
-  config,
   lib,
   pkgs,
   inputs,
@@ -65,11 +68,6 @@
   # udev rules for YubiKey devices.
   services.udev.packages = [pkgs.yubikey-personalization];
 
-  # Default timezone, locales and console layout.
-  time.timeZone = lib.mkDefault "Europe/Madrid";
+  # Supported locales.
   i18n.supportedLocales = ["en_US.UTF-8/UTF-8" "es_ES.UTF-8/UTF-8"];
-  console.keyMap = "es";
-
-  # Initial NixOS release; keep untouched once set.
-  system.stateVersion = "26.05";
 }

@@ -6,6 +6,9 @@
 # -------------------------------------------
 # Nix audio module by lPhiNix
 #
+# Provides audio support (PipeWire with PulseAudio compatibility), gated
+# behind its own per-host feature toggle.
+#
 {
   config,
   lib,

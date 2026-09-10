@@ -2,7 +2,7 @@
 #   / |/ (_)_ __  / ___/______ ____  / /  (_)______
 #  /    / /\ \ / / (_ / __/ _ `/ _ \/ _ \/ / __(_-<
 # /_/|_/_//_\_\  \___/_/  \_,_/ .__/_//_/_/\__/___/
-#                           /_/
+#                            /_/
 # -------------------------------------------------
 # Graphics nix home pakages by lPhiNix
 #
@@ -12,7 +12,7 @@
   nixosConfig,
   ...
 }: {
-  home.packages = lib.mkIf (nixosConfig.modules.graphics.provider != null) (with pkgs; [
+  home.packages = lib.mkIf (nixosConfig.myConfig.gpu.provider != null) (with pkgs; [
     mesa-demos # Mesa OpenGL demo/test utilities
     vulkan-tools # Vulkan info/diagnostic tools
   ]);

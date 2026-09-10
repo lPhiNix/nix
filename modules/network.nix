@@ -6,6 +6,9 @@
 # -------------------------------------------------------
 # Nix network module by lPhiNix
 #
+# Provides networking and remote access (SSH daemon and host firewall),
+# gated behind its own per-host feature toggle.
+#
 {
   config,
   lib,

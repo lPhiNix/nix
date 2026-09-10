@@ -1,0 +1,33 @@
+#     _   ___         __  ___          __      __
+#    / | / (_)  __   /  |/  /___  ____/ /_  __/ /__  _____
+#   /  |/ / / |/_/  / /|_/ / __ \/ __  / / / / / _ \/ ___/
+#  / /|  / />  <   / /  / / /_/ / /_/ / /_/ / /  __(__  )
+# /_/ |_/_/_/|_|  /_/  /_/\____/\__,_/\__,_/_/\___/____/
+# --------------------------------------------------------
+# Nix modules configuration by lPhiNix
+#
+# Aggregates every shared system module and translates the per-host myConfig
+# values into real system configuration. It is the entry point imported for
+# every host.
+#
+{config, ...}: {
+  imports = [
+    ./options.nix
+    ./core.nix
+    ./graphics.nix
+    ./audio.nix
+    ./network.nix
+    ./desktop.nix
+    ./gaming.nix
+  ];
+
+  # Translate myConfig into system configuration (Options module).
+  networking.hostName = config.myConfig.hostName;
+  time.timeZone = config.myConfig.timezone;
+  console.keyMap = config.myConfig.consoleKeyMap;
+
+  users.users.${config.myConfig.username} = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "networkmanager"] ++ config.myConfig.extraGroups;
+  };
+}

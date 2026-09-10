@@ -25,7 +25,7 @@
       nixosConfig = config;
     };
 
-    home-manager.users.phinix = {
+    home-manager.users.${config.myConfig.username} = {
       # Keep home files compatible with this NixOS release.
       home.stateVersion = "26.05";
 

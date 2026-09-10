@@ -7,6 +7,9 @@
 # ----------------------------------------------------
 # Nix gaming module by lPhiNix
 #
+# Provides gaming support (Steam and its runtime), gated behind its own
+# per-host feature toggle.
+#
 {
   config,
   lib,

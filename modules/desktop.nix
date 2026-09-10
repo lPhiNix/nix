@@ -7,6 +7,9 @@
 # ----------------------------------------------------
 # Nix desktop module by lPhiNix
 #
+# Provides the graphical desktop environment (Hyprland and its supporting
+# services), gated behind its own per-host feature toggle.
+#
 {
   config,
   lib,
