@@ -26,7 +26,7 @@
 
     trash-cli # Move files to trash
 
-    tealdeer # Optimize Man page
+    tealdeer # Fast tldr client (simplified man pages)
 
     yubikey-manager # YubiKey device manager (ykman)
   ];
