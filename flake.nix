@@ -1,10 +1,9 @@
-#     ____  __    _ _   ___         ______            _____
-#    / __ \/ /_  (_) | / (_)  __   / ____/___  ____  / __(_)___ _
-#   / /_/ / __ \/ /  |/ / / |/_/  / /   / __ \/ __ \/ /_/ / __ `/
-#  / ____/ / / / / /|  / />  <   / /___/ /_/ / / / / __/ / /_/ /
-# /_/   /_/ /_/_/_/ |_/_/_/|_|   \____/\____/_/ /_/_/ /_/\__, /
-#                                                       /____/
-# ---------------------------------------------------------------
+#     ____  __    _ _   ___
+#    / __ \/ /_  (_) | / (_)  __
+#   / /_/ / __ \/ /  |/ / / |/_/
+#  / ____/ / / / / /|  / />  <
+# /_/   /_/ /_/_/_/ |_/_/_/|_|
+# ------------------------------
 # Nix configuration by lPhiNix
 #
 {
@@ -19,6 +18,12 @@
     # Home-manager, pinned to the same nixpkgs.
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Declarative disk partitioning, pinned to the same nixpkgs.
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
