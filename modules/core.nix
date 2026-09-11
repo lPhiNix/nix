@@ -65,6 +65,10 @@
   # Allow non-redistributable firmware blobs.
   hardware.enableRedistributableFirmware = true;
 
+  # Shared defaults for host data. Any host can override these directly
+  time.timeZone = lib.mkDefault "Europe/Madrid";
+  console.keyMap = lib.mkDefault "us";
+
   # udev rules for YubiKey devices.
   services.udev.packages = [pkgs.yubikey-personalization];
 

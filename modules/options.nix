@@ -35,19 +35,6 @@ in {
       description = "Extra groups for the primary user.";
     };
 
-    # System timezone.
-    timezone = mkOption {
-      type = types.str;
-      default = "Europe/Madrid";
-    };
-
-    # TTY console keymap (the graphical session is configured elsewhere).
-    consoleKeyMap = mkOption {
-      type = types.str;
-      default = "us";
-      description = "TTY keymap (does not affect Hyprland).";
-    };
-
     # Machine profiles: each profile enables sensible defaults for that kind of host.
     profiles = mkOption {
       type = types.listOf (types.enum ["laptop" "desktop" "server"]);

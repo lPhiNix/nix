@@ -25,12 +25,12 @@ build:
 
 # Format all .nix files in the repo with Alejandra.
 fmt:
-	nix run .#formatter.x86_64-linux -- .
+	nix fmt .
 
 # Update flake inputs, then format the updated lockfile.
 update:
 	nix flake update
-	nix run .#formatter.x86_64-linux -- .
+	nix fmt .
 
 # Validate the whole flake.
 check:

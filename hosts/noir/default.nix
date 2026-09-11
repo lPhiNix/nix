@@ -17,7 +17,6 @@
   myConfig = {
     hostName = "noir";
     username = "phinix";
-    consoleKeyMap = "es";
     profiles = ["laptop"];
     gpu = {
       provider = "nvidia";
@@ -28,6 +27,10 @@
       };
     };
   };
+
+  # Host-specific NixOS options
+  console.keyMap = "es";
+  time.timeZone = "Europe/Madrid";
 
   modules.gaming.enable = true;
 

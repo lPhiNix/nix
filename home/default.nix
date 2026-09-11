@@ -19,10 +19,12 @@
     home-manager.useGlobalPkgs = true;
 
     # Inject the flake inputs and the NixOS config into every home module.
-    # nixosConfig lets each module gate packages on the host's modules.*.enable.
+    # myConfig gives direct access to the host identity (profiles, gpu...),
+    # while nixosConfig stays available to gate on modules.*.enable.
     home-manager.extraSpecialArgs = {
       inherit inputs;
       nixosConfig = config;
+      myConfig = config.myConfig;
     };
 
     home-manager.users.${config.myConfig.username} = {

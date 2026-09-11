@@ -40,8 +40,10 @@
     home-manager,
     ...
   } @ inputs: let
-    # Architecture targeted by this configuration.
-    system = "x86_64-linux";
+    # Architecture for flake-level outputs (formatter, packages). Hosts are
+    # NOT tied to this: each one declares nixpkgs.hostPlatform in its own
+    # hardware.nix, so an aarch64 machine needs no change here.
+    defaultSystem = "x86_64-linux";
 
     # --- Host discovery ---
     # Every subdirectory of hosts/ that contains a default.nix is a machine.
@@ -53,9 +55,10 @@
     hostNames = builtins.filter isHost (builtins.attrNames hostEntries);
 
     # Build a host: its own directory plus the shared system modules.
+    # No explicit `system` argument: it is derived from the host's own
+    # nixpkgs.hostPlatform, which keeps the flake multi-architecture.
     mkHost = name:
       nixpkgs.lib.nixosSystem {
-        inherit system;
         specialArgs = {inherit inputs;};
         modules = [
           # Host-specific configuration (hosts/<name>/default.nix).
@@ -71,10 +74,10 @@
       };
   in {
     # Formatter used by `nix fmt` (Alejandra).
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    formatter.${defaultSystem} = nixpkgs.legacyPackages.${defaultSystem}.alejandra;
 
     # Custom packages from ./pkgs, runnable via `nix run .#name`.
-    packages.${system} = import ./pkgs nixpkgs.legacyPackages.${system};
+    packages.${defaultSystem} = import ./pkgs nixpkgs.legacyPackages.${defaultSystem};
 
     # Overlays consumed by modules/core.nix.
     overlays = import ./overlays {inherit inputs;};

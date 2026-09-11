@@ -21,6 +21,7 @@
     ./desktop.nix
     ./gaming.nix
     ./power.nix
+    ./login.nix
 
     # Profiles: per-machine-type defaults for the features above.
     ./profiles/laptop.nix
@@ -28,13 +29,5 @@
     ./profiles/server.nix
   ];
 
-  # Translate myConfig into system configuration.
   networking.hostName = config.myConfig.hostName;
-  time.timeZone = config.myConfig.timezone;
-  console.keyMap = config.myConfig.consoleKeyMap;
-
-  users.users.${config.myConfig.username} = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"] ++ config.myConfig.extraGroups;
-  };
 }
