@@ -19,17 +19,16 @@
     inputs.caelestia-cli.packages.${pkgs.stdenv.hostPlatform.system}.with-shell
 
     uwsm # Wayland session manager (systemd)
-    quickshell # Desktop shell
 
     kitty # Terminal
 
     nautilus # File manager
     brave # Web browser
-    tor-browser # Tor Browser (anonymity)
+    pkgs.unstablePkgs.tor-browser # Tor Browser (anonymity)
     vscode # Code editor (GUI IDE)
     obsidian # Markdown vault
     obs-studio # Screen recording and streaming
-    lmstudio # Local LLM desktop app
+    pkgs.unstablePkgs.lmstudio # Local LLM desktop app
 
     libnotify # Desktop notifications
     wl-clipboard # Wayland clipboard

@@ -9,6 +9,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     python3 # Python 3 interpreter
-    uv # Fast Python package and virtualenv manager
+    pkgs.unstablePkgs.uv # Fast Python package and virtualenv manager
   ];
 }

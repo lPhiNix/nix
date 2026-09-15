@@ -20,7 +20,7 @@
         unset LD_LIBRARY_PATH
         export XDG_DATA_HOME="$HOME/.games/osu/data"
         mkdir -p "$XDG_DATA_HOME"
-        exec ${osu-lazer-bin}/bin/osu! "$@"
+        exec ${pkgs.unstablePkgs.osu-lazer-bin}/bin/osu! "$@"
       '')
     ];
     # Desktop entry so the launcher shows up in the app menu.
@@ -28,7 +28,7 @@
       name = "osu!";
       comment = "Rhythm is just a *click* away";
       exec = "${config.home.profileDirectory}/bin/osu";
-      icon = "${pkgs.osu-lazer-bin}/share/icons/hicolor/512x512/apps/osu.png";
+      icon = "${pkgs.unstablePkgs.osu-lazer-bin}/share/icons/hicolor/512x512/apps/osu.png";
       terminal = false;
       categories = ["Game"];
       settings.StartupWMClass = "osu!";
