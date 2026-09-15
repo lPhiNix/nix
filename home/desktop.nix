@@ -18,8 +18,6 @@
     # Caelestia desktop dotfiles and shell control CLI
     inputs.caelestia-cli.packages.${pkgs.stdenv.hostPlatform.system}.with-shell
 
-    uwsm # Wayland session manager (systemd)
-
     kitty # Terminal
 
     nautilus # File manager
