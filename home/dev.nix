@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     neovim # Cli IDE
 
-    pkgs.unstablePkgs.opencode # Cli local/remote AI coding client
+    opencode # Cli local/remote AI coding client
 
     direnv # Environments vars loader
   ];
