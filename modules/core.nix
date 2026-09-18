@@ -69,6 +69,9 @@
   time.timeZone = lib.mkDefault "Europe/Madrid";
   console.keyMap = lib.mkDefault "us";
 
+  # Smart card (CCID) support: OATH, PIV and OpenPGP over PC/SC.
+  services.pcscd.enable = true;
+
   # udev rules for YubiKey devices.
   services.udev.packages = [pkgs.yubikey-personalization];
 
