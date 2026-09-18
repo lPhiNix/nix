@@ -8,10 +8,14 @@
 #
 {inputs, ...}: {
   imports = [
+    # Machine
     ./hardware.nix
-
     inputs.disko.nixosModules.disko
     ./disko.nix
+
+    # Console / login experience
+    ./console.nix
+    ./ly.nix
   ];
 
   myConfig = {
@@ -29,7 +33,6 @@
   };
 
   # Host-specific NixOS options
-  console.keyMap = "es";
   time.timeZone = "Europe/Madrid";
 
   modules.gaming.enable = true;

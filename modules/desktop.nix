@@ -8,7 +8,8 @@
 # Nix desktop module by lPhiNix
 #
 # Provides the graphical desktop environment (Hyprland and its supporting
-# services), gated behind its own per-host feature toggle.
+# services), gated behind its own per-host feature toggle. The display
+# manager theme is intentionally host-specific (hosts/<name>/ly.nix).
 #
 {
   config,
@@ -20,6 +21,15 @@
   config = lib.mkIf config.modules.desktop.enable {
     # Hyprland Wayland compositor.
     programs.hyprland.enable = true;
+
+    # Login manager: ly (TUI). Theme lives in the host (hosts/<name>/ly.nix).
+    services.displayManager.ly = {
+      enable = true;
+      x11Support = false; # Hyprland / Wayland only
+    };
+
+    # Unlock the GNOME keyring automatically on login (password-based ly).
+    security.pam.services.ly.enableGnomeKeyring = true;
 
     # Bluetooth support for devices and audio.
     hardware.bluetooth.enable = true;
