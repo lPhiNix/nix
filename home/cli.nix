@@ -29,5 +29,6 @@
     tealdeer # Fast tldr client (simplified man pages)
 
     yubikey-manager # YubiKey device manager (ykman)
+    pcsc-tools # PC/SC smart card diagnostics (pcsc_scan)
   ];
 }
