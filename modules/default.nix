@@ -21,7 +21,8 @@
     ./desktop.nix
     ./gaming.nix
     ./power.nix
-    ./login.nix
+    ./shell.nix
+    ./users.nix
 
     # Profiles: per-machine-type defaults for the features above.
     ./profiles/laptop.nix
