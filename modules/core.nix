@@ -54,8 +54,8 @@
   # Boot via systemd-boot and let nixos-rebuild manage EFI vars.
   boot.loader.systemd-boot = {
     enable = lib.mkDefault true;
-    # Keep only the 5 most recent generations in the boot menu.
-    configurationLimit = lib.mkDefault 5;
+    # Keep only the 10 most recent generations in the boot menu.
+    configurationLimit = lib.mkDefault 10;
   };
   boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
