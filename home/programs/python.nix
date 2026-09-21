@@ -10,5 +10,7 @@
   home.packages = with pkgs; [
     python3 # Python 3 interpreter
     pkgs.unstablePkgs.uv # Fast Python package and virtualenv manager
+    basedpyright # Python language server (type checking)
+    ruff # Python language server, linter and formatter
   ];
 }

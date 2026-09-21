@@ -13,5 +13,7 @@
     gnumake # Make build tool
     pkg-config # Helper for compiler/linker flags
     gdb # C/C++ debugger
+    clang-tools # clangd: C/C++ language server
+    neocmakelsp # CMake language server
   ];
 }

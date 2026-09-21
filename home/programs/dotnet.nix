@@ -12,6 +12,7 @@
 }: {
   home.packages = with pkgs; [
     dotnet-sdk_9 # .NET 9 SDK (C#/F#/VB)
+    omnisharp-roslyn # C#/.NET language server
   ];
 
   # Quiet first runs (no telemetry/banner) and keep the NuGet package cache under XDG.

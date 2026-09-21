@@ -11,5 +11,6 @@
     rustc # Rust compiler
     rustfmt # Rust code formatter
     clippy # Rust linter (run via 'cargo clippy')
+    rust-analyzer # Rust language server
   ];
 }

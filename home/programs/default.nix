@@ -8,5 +8,6 @@
     ./cc.nix
     ./go.nix
     ./dotnet.nix
+    ./lua.nix
   ];
 }
