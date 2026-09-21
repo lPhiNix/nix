@@ -9,11 +9,11 @@
 # Entry point to reuse the SAME home modules outside NixOS, via Home Manager
 # standalone on any Linux with Nix:
 #
-#   home-manager switch --flake ~/.nix#phinix@noir
+#   home-manager switch --flake ~/.nix#standalone
 #
 # The same modules as the NixOS integration. Their desktop/gaming/graphics
-# packages are gated through the `features`/`myConfig` specialArgs, which are
-# injected from flake.nix so they work without NixOS.
+# packages are gated through the `features` specialArg (injected from
+# flake.nix), so they work without NixOS and without defining a host.
 {...}: {
   imports = [
     ./shell.nix

@@ -18,15 +18,15 @@
     # Use the system nixpkgs instead of letting home-manager build its own.
     home-manager.useGlobalPkgs = true;
 
-    # Inject the flake inputs plus the per-host identity/flags into every home
-    # module. `features` bridges the NixOS modules.*.enable booleans so the same
-    # home modules also work outside NixOS (see home/standalone.nix).
+    # Inject the flake inputs plus the feature flags into every home module.
+    # `features` bridges the NixOS modules.*.enable booleans (and the GPU gate)
+    # so the same home modules also work outside NixOS (home/standalone.nix).
     home-manager.extraSpecialArgs = {
       inherit inputs;
-      myConfig = config.myConfig;
       features = {
         desktop = config.modules.desktop.enable;
         gaming = config.modules.gaming.enable;
+        graphics = config.myConfig.gpu.provider != null;
       };
     };
 
