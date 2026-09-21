@@ -26,6 +26,7 @@
     obsidian # Markdown vault
     obs-studio # Screen recording and streaming
     pkgs.unstablePkgs.lmstudio # Local LLM desktop app
+    quickemu # Quick VMs (quickget/quickemu CLI)
 
     libnotify # Desktop notifications
     wl-clipboard # Wayland clipboard
