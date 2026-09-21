@@ -43,11 +43,11 @@
     channel.enable = false;
 
     # Automatic garbage collection: delete generations and store paths
-    # older than 7 days (the generation active then is preserved).
+    # older than 14 days (the generation active then is preserved).
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 14d";
     };
   };
 
