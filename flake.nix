@@ -84,5 +84,36 @@
 
     # Real machines, discovered automatically from hosts/.
     nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
+
+    # Same home modules, usable OUTSIDE NixOS (Home Manager standalone):
+    #   home-manager switch --flake ~/.nix#phinix@noir
+    # desktop/gaming/graphics are enabled through the `features`/`myConfig`
+    # specialArgs, exactly like the NixOS integration does.
+    homeConfigurations."phinix@noir" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = defaultSystem;
+        config.allowUnfree = true;
+        overlays = [
+          self.overlays.additions
+          self.overlays.modifications
+          self.overlays.unstable-packages
+        ];
+      };
+      extraSpecialArgs = {
+        inherit inputs;
+        myConfig.gpu.provider = "nvidia";
+        features = {
+          desktop = true;
+          gaming = true;
+        };
+      };
+      modules = [
+        ./home/standalone.nix
+        {
+          home.username = "phinix";
+          home.homeDirectory = "/home/phinix";
+        }
+      ];
+    };
   };
 }

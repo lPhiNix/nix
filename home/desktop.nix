@@ -7,14 +7,13 @@
 # Desktop nix home packages by lPhiNix
 #
 {
-  config,
   lib,
   pkgs,
   inputs,
-  nixosConfig,
+  features,
   ...
 }: {
-  home.packages = lib.mkIf nixosConfig.modules.desktop.enable (with pkgs; [
+  home.packages = lib.mkIf features.desktop (with pkgs; [
     # Caelestia desktop dotfiles and shell control CLI
     inputs.caelestia-cli.packages.${pkgs.stdenv.hostPlatform.system}.with-shell
 

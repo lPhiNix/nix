@@ -9,10 +9,10 @@
 {
   lib,
   pkgs,
-  nixosConfig,
+  myConfig,
   ...
 }: {
-  home.packages = lib.mkIf (nixosConfig.myConfig.gpu.provider != null) (with pkgs; [
+  home.packages = lib.mkIf (myConfig.gpu.provider != null) (with pkgs; [
     mesa-demos # Mesa OpenGL demo/test utilities
     vulkan-tools # Vulkan info/diagnostic tools
   ]);

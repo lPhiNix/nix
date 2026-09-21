@@ -10,10 +10,10 @@
   config,
   lib,
   pkgs,
-  nixosConfig,
+  features,
   ...
 }: {
-  config = lib.mkIf nixosConfig.modules.gaming.enable {
+  config = lib.mkIf features.gaming {
     home.packages = with pkgs; [
       # osu! launcher: isolate game data in ~/.games and clear LD_LIBRARY_PATH to avoid clashes.
       (writeShellScriptBin "osu" ''
