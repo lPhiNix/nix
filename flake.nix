@@ -59,7 +59,12 @@
     # nixpkgs.hostPlatform, which keeps the flake multi-architecture.
     mkHost = name:
       nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
+        # The directory name (hosts/<name>) is the single source for the
+        # hostname: it is also the nixosConfigurations attribute name.
+        specialArgs = {
+          inherit inputs;
+          hostName = name;
+        };
         modules = [
           # Host-specific configuration (hosts/<name>/default.nix).
           ./hosts/${name}

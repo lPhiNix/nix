@@ -19,7 +19,6 @@
   ];
 
   myConfig = {
-    hostName = "noir";
     username = "phinix";
     profiles = ["laptop"];
     gpu = {

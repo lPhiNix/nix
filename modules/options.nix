@@ -15,12 +15,6 @@
   inherit (lib) mkOption types;
 in {
   options.myConfig = {
-    # Machine identity: also the attribute name under nixosConfigurations.
-    hostName = mkOption {
-      type = types.str;
-      description = "Hostname (also the attribute name in nixosConfigurations).";
-    };
-
     # Primary user account.
     username = mkOption {
       type = types.str;

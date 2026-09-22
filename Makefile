@@ -7,8 +7,8 @@
 # Makefile for the PhiNix Nix configuration.
 # Shortcuts to switch, build, format, update and check the Nix flake.
 
-# Default host to target; falls back to the current hostname.
-HOST ?= $(shell hostname)
+# Default host to target; falls back to the current short hostname.
+HOST ?= $(shell hostname -s)
 # Absolute path to the flake (this directory).
 FLAKE := $(CURDIR)
 
