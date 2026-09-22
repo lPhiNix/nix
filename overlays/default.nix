@@ -12,4 +12,10 @@
       config.allowUnfree = true;
     };
   };
+
+  # Expose the Caelestia shell+CLI as pkgs.caelestia, so the home modules do
+  # not need to reach into the caelestia-cli flake input directly.
+  caelestia-packages = final: _prev: {
+    caelestia = inputs.caelestia-cli.packages.${final.stdenv.hostPlatform.system}.with-shell;
+  };
 }

@@ -40,10 +40,11 @@
     home-manager,
     ...
   } @ inputs: let
-    # Architecture for flake-level outputs (formatter, packages). Hosts are
-    # NOT tied to this: each one declares nixpkgs.hostPlatform in its own
-    # hardware.nix, so an aarch64 machine needs no change here.
-    defaultSystem = "x86_64-linux";
+    # Architectures for the flake-level outputs (formatter, packages,
+    # standalone home configs). NixOS hosts are NOT tied to this: each one
+    # declares nixpkgs.hostPlatform in its own hardware.nix.
+    systems = ["x86_64-linux" "aarch64-linux"];
+    eachSystem = f: nixpkgs.lib.genAttrs systems (system: f system);
 
     # --- Host discovery ---
     # Every subdirectory of hosts/ that contains a default.nix is a machine.
@@ -56,18 +57,17 @@
 
     # Build a host: its own directory plus the shared system modules.
     # No explicit `system` argument: it is derived from the host's own
-    # nixpkgs.hostPlatform, which keeps the flake multi-architecture.
+    # nixpkgs.hostPlatform, which keeps this multi-architecture.
     mkHost = name:
       nixpkgs.lib.nixosSystem {
-        # The directory name (hosts/<name>) is the single source for the
-        # hostname: it is also the nixosConfigurations attribute name.
-        specialArgs = {
-          inherit inputs;
-          hostName = name;
-        };
+        specialArgs = {inherit inputs;};
         modules = [
           # Host-specific configuration (hosts/<name>/default.nix).
           ./hosts/${name}
+
+          # The directory name is the single source for the hostname: it is
+          # also the nixosConfigurations attribute name.
+          {networking.hostName = name;}
 
           # Shared system modules + myConfig translation.
           ./modules
@@ -77,49 +77,63 @@
           ./home
         ];
       };
+
+    # --- Standalone Home Manager (outside NixOS) ---
+    # Same home modules, one entry per architecture, valid on any Linux with
+    # Nix (no host defined). Feature flags are plain preferences.
+    featuresBySystem = {
+      x86_64-linux = {
+        desktop = true;
+        gaming = false;
+        graphics = true;
+      };
+      aarch64-linux = {
+        desktop = false;
+        gaming = false;
+        graphics = true;
+      };
+    };
+
+    mkStandalone = system: features:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            self.overlays.additions
+            self.overlays.modifications
+            self.overlays.unstable-packages
+            self.overlays.caelestia-packages
+          ];
+        };
+        modules = [
+          ./home/standalone.nix
+          {
+            home.username = "phinix";
+            home.homeDirectory = "/home/phinix";
+            inherit features;
+          }
+        ];
+      };
   in {
-    # Formatter used by `nix fmt` (Alejandra).
-    formatter.${defaultSystem} = nixpkgs.legacyPackages.${defaultSystem}.alejandra;
+    # Formatter used by `nix fmt` (Alejandra), per system.
+    formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Custom packages from ./pkgs, runnable via `nix run .#name`.
-    packages.${defaultSystem} = import ./pkgs nixpkgs.legacyPackages.${defaultSystem};
+    packages = eachSystem (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
-    # Overlays consumed by modules/core.nix.
+    # Overlays consumed by modules/core.nix and the standalone pkgs.
     overlays = import ./overlays {inherit inputs;};
 
     # Real machines, discovered automatically from hosts/.
     nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
 
-    # Same home modules, usable OUTSIDE NixOS (Home Manager standalone).
-    # Single, host-agnostic entry valid on any Linux with Nix:
-    #   home-manager switch --flake ~/.nix#standalone
-    # Feature flags are plain preferences (no host data), so no machine
-    # needs to be defined.
-    homeConfigurations.standalone = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = defaultSystem;
-        config.allowUnfree = true;
-        overlays = [
-          self.overlays.additions
-          self.overlays.modifications
-          self.overlays.unstable-packages
-        ];
-      };
-      extraSpecialArgs = {
-        inherit inputs;
-        features = {
-          desktop = true;
-          gaming = false;
-          graphics = true;
-        };
-      };
-      modules = [
-        ./home/standalone.nix
-        {
-          home.username = "phinix";
-          home.homeDirectory = "/home/phinix";
-        }
-      ];
-    };
+    # Host-agnostic Home Manager configs, one per architecture:
+    #   home-manager switch --flake ~/.nix#standalone-x86_64-linux
+    homeConfigurations = nixpkgs.lib.listToAttrs (map (system: {
+        name = "standalone-${system}";
+        value = mkStandalone system featuresBySystem.${system};
+      })
+      systems);
   };
 }

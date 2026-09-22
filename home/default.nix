@@ -9,7 +9,6 @@
 {
   config,
   lib,
-  inputs,
   ...
 }: {
   options.modules.home.enable = lib.mkEnableOption "Home Manager";
@@ -18,32 +17,17 @@
     # Use the system nixpkgs instead of letting home-manager build its own.
     home-manager.useGlobalPkgs = true;
 
-    # Inject the flake inputs plus the feature flags into every home module.
-    # `features` bridges the NixOS modules.*.enable booleans (and the GPU gate)
-    # so the same home modules also work outside NixOS (home/standalone.nix).
-    home-manager.extraSpecialArgs = {
-      inherit inputs;
+    home-manager.users.${config.myConfig.username} = {
+      # Shared module list + release version (home/shared.nix).
+      imports = [./shared.nix];
+
+      # Typed toggles (see home/options.nix), bridged from the NixOS
+      # modules.*.enable booleans so the same modules also work outside NixOS.
       features = {
         desktop = config.modules.desktop.enable;
         gaming = config.modules.gaming.enable;
         graphics = config.modules.graphics.enable;
       };
-    };
-
-    home-manager.users.${config.myConfig.username} = {
-      # Keep home files compatible with this NixOS release.
-      home.stateVersion = "26.05";
-
-      # Themed package modules and per-program configurations.
-      imports = [
-        ./shell.nix
-        ./cli.nix
-        ./dev.nix
-        ./graphics.nix
-        ./desktop.nix
-        ./gaming.nix
-        ./programs
-      ];
     };
   };
 }

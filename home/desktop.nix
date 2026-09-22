@@ -7,15 +7,14 @@
 # Desktop nix home packages by lPhiNix
 #
 {
+  config,
   lib,
   pkgs,
-  inputs,
-  features,
   ...
 }: {
-  home.packages = lib.mkIf features.desktop (with pkgs; [
-    # Caelestia desktop dotfiles and shell control CLI
-    inputs.caelestia-cli.packages.${pkgs.stdenv.hostPlatform.system}.with-shell
+  home.packages = lib.mkIf config.features.desktop (with pkgs; [
+    # Caelestia desktop dotfiles and shell control CLI (from the overlay)
+    pkgs.caelestia
 
     kitty # Terminal
 

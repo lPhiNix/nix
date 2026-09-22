@@ -10,10 +10,9 @@
   config,
   lib,
   pkgs,
-  features,
   ...
 }: {
-  config = lib.mkIf features.gaming {
+  config = lib.mkIf config.features.gaming {
     home.packages = with pkgs; [
       # osu! launcher: isolate game data in ~/.games and clear LD_LIBRARY_PATH to avoid clashes.
       (writeShellScriptBin "osu" ''

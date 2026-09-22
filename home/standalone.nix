@@ -15,18 +15,9 @@
 # packages are gated through the `features` specialArg (injected from
 # flake.nix), so they work without NixOS and without defining a host.
 {...}: {
-  imports = [
-    ./shell.nix
-    ./cli.nix
-    ./dev.nix
-    ./graphics.nix
-    ./desktop.nix
-    ./gaming.nix
-    ./programs
-  ];
-
-  # Keep home files compatible with this release.
-  home.stateVersion = "26.05";
+  # Shared module list + release version (home/shared.nix). The `features`
+  # toggles are set by the caller (flake.nix).
+  imports = [./shared.nix];
 
   # Required by Home Manager outside NixOS (session vars/paths for GUI apps).
   targets.genericLinux.enable = true;

@@ -10,11 +10,7 @@
 # values into real system configuration. It is the entry point imported for
 # every host.
 #
-{
-  config,
-  hostName,
-  ...
-}: {
+{...}: {
   imports = [
     # Modules: shared, reusable system modules.
     ./options.nix
@@ -33,7 +29,4 @@
     ./profiles/desktop.nix
     ./profiles/server.nix
   ];
-
-  # Derived from the hosts/<name> directory (see flake.nix mkHost).
-  networking.hostName = hostName;
 }

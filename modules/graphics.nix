@@ -87,6 +87,10 @@ in {
               && gpu.prime.igpuBusId != "");
           message = "myConfig.gpu.prime.enable requires nvidiaBusId, igpu and igpuBusId.";
         }
+        {
+          assertion = !gpu.prime.enable || gpu.nvidia.powerManagement;
+          message = "myConfig.gpu.prime.enable requires myConfig.gpu.nvidia.powerManagement = true (finegrained PRIME).";
+        }
       ];
     }
   ];
