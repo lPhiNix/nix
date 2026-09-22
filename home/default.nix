@@ -26,7 +26,7 @@
       features = {
         desktop = config.modules.desktop.enable;
         gaming = config.modules.gaming.enable;
-        graphics = config.myConfig.gpu.provider != null;
+        graphics = config.modules.graphics.enable;
       };
     };
 
