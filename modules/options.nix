@@ -51,25 +51,49 @@ in {
         description = "Primary GPU, or null to disable GPU configuration.";
       };
 
-      # PRIME offload, used by hybrid laptops.
+      # NVIDIA-specific knobs (only used when provider == "nvidia").
+      nvidia = {
+        open = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Use the open-source NVIDIA kernel module.";
+        };
+
+        powerManagement = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Enable NVIDIA power management.";
+        };
+      };
+
+      # PRIME offload: the NVIDIA dGPU renders, the integrated GPU displays.
       prime = {
         # Enable PRIME offload.
         enable = mkOption {
           type = types.bool;
           default = false;
-          description = "PRIME offload (hybrid laptops).";
+          description = "PRIME offload (NVIDIA dGPU + integrated GPU).";
         };
 
         # PCI BusID of the NVIDIA GPU.
         nvidiaBusId = mkOption {
           type = types.str;
           default = "";
+          description = "PCI BusID of the NVIDIA GPU (e.g. PCI:1:0:0).";
+        };
+
+        # Integrated GPU used for display.
+        igpu = mkOption {
+          type = types.nullOr (types.enum ["intel" "amd"]);
+          default = null;
+          description = "Integrated GPU used for display in a PRIME setup.";
         };
 
         # PCI BusID of the integrated GPU.
-        intelBusId = mkOption {
+        igpuBusId = mkOption {
           type = types.str;
           default = "";
+          description = "PCI BusID of the integrated GPU (e.g. PCI:0:2:0).";
         };
       };
     };
