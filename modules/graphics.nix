@@ -59,14 +59,15 @@ in {
         };
         # PRIME offload: render on NVIDIA, display via the integrated GPU.
         prime = lib.mkIf gpu.prime.enable ({
-          offload.enable = true;
-          offload.enableOffloadCmd = true;
-          nvidiaBusId = gpu.prime.nvidiaBusId;
-        } // (
-          if gpu.prime.igpu == "intel"
-          then {intelBusId = gpu.prime.igpuBusId;}
-          else {amdgpuBusId = gpu.prime.igpuBusId;}
-        ));
+            offload.enable = true;
+            offload.enableOffloadCmd = true;
+            nvidiaBusId = gpu.prime.nvidiaBusId;
+          }
+          // (
+            if gpu.prime.igpu == "intel"
+            then {intelBusId = gpu.prime.igpuBusId;}
+            else {amdgpuBusId = gpu.prime.igpuBusId;}
+          ));
       };
     })
 
@@ -80,7 +81,8 @@ in {
         {
           assertion =
             !gpu.prime.enable
-            || (gpu.prime.nvidiaBusId != ""
+            || (gpu.prime.nvidiaBusId
+              != ""
               && gpu.prime.igpu != null
               && gpu.prime.igpuBusId != "");
           message = "myConfig.gpu.prime.enable requires nvidiaBusId, igpu and igpuBusId.";
