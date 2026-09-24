@@ -9,5 +9,7 @@
     ./go.nix
     ./dotnet.nix
     ./lua.nix
+    ./kotlin.nix
+    ./android.nix
   ];
 }

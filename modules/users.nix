@@ -17,7 +17,7 @@
 }: {
   users.users.${config.myConfig.username} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager"] ++ config.myConfig.extraGroups;
+    extraGroups = ["wheel" "networkmanager" "kvm"] ++ config.myConfig.extraGroups;
     shell = pkgs.fish; # registered system-wide in shell.nix
   };
 
