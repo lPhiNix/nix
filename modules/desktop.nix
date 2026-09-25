@@ -26,6 +26,7 @@
     services.displayManager.ly = {
       enable = true;
       x11Support = false; # Hyprland / Wayland only
+      settings.session_log = null; # Disable log file
     };
 
     # Unlock the GNOME keyring automatically on login (password-based ly).
