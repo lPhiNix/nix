@@ -27,5 +27,7 @@
     opencode # Cli local/remote AI coding client
 
     direnv # Environments vars loader
+
+    cookiecutter # Generic project scaffolding from templates
   ];
 }
