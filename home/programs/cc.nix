@@ -8,12 +8,12 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     gcc # C/C++ compiler (also provides cc/c++)
-    cmake # Cross-platform C/C++ build system
+    pkgs.unstablePkgs.cmake # Cross-platform C/C++ build system
     ninja # Fast, minimal build system
     gnumake # Make build tool
     pkg-config # Helper for compiler/linker flags
     gdb # C/C++ debugger
     clang-tools # clangd: C/C++ language server
-    neocmakelsp # CMake language server
+    pkgs.unstablePkgs.neocmakelsp # CMake language server
   ];
 }

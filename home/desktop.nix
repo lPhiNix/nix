@@ -21,7 +21,7 @@
     nautilus # File manager
     brave # Web browser
     pkgs.unstablePkgs.tor-browser # Tor Browser (anonymity)
-    vscode # Code editor (GUI IDE)
+    pkgs.unstablePkgs.vscode # Code editor (GUI IDE)
     obsidian # Markdown vault
     obs-studio # Screen recording and streaming
     pkgs.unstablePkgs.lmstudio # Local LLM desktop app

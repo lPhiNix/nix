@@ -7,10 +7,10 @@
 #
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    kotlin # Kotlin compiler (kotlinc) and REPL
+    pkgs.unstablePkgs.kotlin # Kotlin compiler (kotlinc) and REPL
     kotlin-language-server # Kotlin language server (LSP)
     ktlint # Kotlin linter and formatter
-    ktfmt # Kotlin formatter (Google style)
+    pkgs.unstablePkgs.ktfmt # Kotlin formatter (Google style)
 
     gradle_8 # JVM build tool
   ];

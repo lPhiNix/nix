@@ -24,7 +24,7 @@
     nixfmt # Nix formatter
     statix # Nix linter
 
-    opencode # Cli local/remote AI coding client
+    pkgs.unstablePkgs.opencode # Cli local/remote AI coding client
 
     direnv # Environments vars loader
 

@@ -12,7 +12,7 @@
 
     typescript # tsc compiler and TypeScript language service
     typescript-language-server # TypeScript language server (LSP)
-    biome # TS linter and formatter (replaces eslint/prettier)
+    pkgs.unstablePkgs.biome # TS linter and formatter (replaces eslint/prettier)
     tsx # Run TypeScript directly, with full syntax
   ];
 }

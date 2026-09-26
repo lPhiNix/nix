@@ -8,7 +8,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     lua5_4 # Lua 5.4 interpreter and luac compiler
-    lua-language-server # Lua language server (LSP)
+    pkgs.unstablePkgs.lua-language-server # Lua language server (LSP)
     stylua # Lua formatter
   ];
 }

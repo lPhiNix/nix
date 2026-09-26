@@ -7,10 +7,10 @@
 #
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    cargo # Rust build tool and package manager
-    rustc # Rust compiler
-    rustfmt # Rust code formatter
-    clippy # Rust linter (run via 'cargo clippy')
-    rust-analyzer # Rust language server
+    pkgs.unstablePkgs.cargo # Rust build tool and package manager
+    pkgs.unstablePkgs.rustc # Rust compiler
+    pkgs.unstablePkgs.rustfmt # Rust code formatter
+    pkgs.unstablePkgs.clippy # Rust linter (run via 'cargo clippy')
+    pkgs.unstablePkgs.rust-analyzer # Rust language server
   ];
 }

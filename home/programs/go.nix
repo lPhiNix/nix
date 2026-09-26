@@ -12,7 +12,7 @@
 }: {
   home.packages = with pkgs; [
     go # Go compiler and toolchain
-    gopls # Go language server
+    pkgs.unstablePkgs.gopls # Go language server
     delve # Go debugger (dlv)
   ];
 
