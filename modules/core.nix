@@ -52,6 +52,15 @@
     };
   };
 
+  # zram: compressed swap in RAM (via zram-generator). Absorbs memory spikes
+  # and prevents hard OOM kills/freezes on machines with no disk swap.
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+    priority = 100;
+  };
+
   # Boot via systemd-boot and let nixos-rebuild manage EFI vars.
   boot.loader.systemd-boot = {
     enable = lib.mkDefault true;
