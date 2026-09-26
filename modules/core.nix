@@ -39,6 +39,10 @@
       flake-registry = "";
       # Automatically deduplicate identical store paths.
       auto-optimise-store = true;
+      # Bound concurrent builds to cap peak RAM (16 GiB machine): at most
+      # 4 builds running, each using up to 4 cores.
+      max-jobs = 4;
+      cores = 4;
     };
     # No channels; the flake is the single source of truth.
     channel.enable = false;
