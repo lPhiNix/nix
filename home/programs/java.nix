@@ -16,9 +16,10 @@
     # Spring Boot CLI (spring init), pinned to the same JDK 17.
     (pkgs."spring-boot-cli".override {jdk = pkgs.jdk17;})
 
-    # Wrappers to run a specific Java version: java8, java17, java21.
+    # Wrappers to run a specific Java version: java8, java17, java21, java25.
     (pkgs.writeShellScriptBin "java8" "exec ${pkgs.jdk8}/bin/java \"$@\"")
     (pkgs.writeShellScriptBin "java17" "exec ${pkgs.jdk17}/bin/java \"$@\"")
     (pkgs.writeShellScriptBin "java21" "exec ${pkgs.jdk21}/bin/java \"$@\"")
+    (pkgs.writeShellScriptBin "java25" "exec ${pkgs.jdk25}/bin/java \"$@\"")
   ];
 }
