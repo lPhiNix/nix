@@ -7,4 +7,7 @@
 # ----------------------------------------------------------
 # Nix custom packages configuration by lPhiNix
 #
-pkgs: {}
+pkgs: {
+  # Official prebuilt ATLauncher jar (fixes the broken source build).
+  atlauncher-bin = pkgs.callPackage ./gaming/atlauncher-bin.nix {};
+}
