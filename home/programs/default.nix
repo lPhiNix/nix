@@ -2,6 +2,7 @@
   # Aggregates the per-program home-manager modules.
   imports = [
     ./git.nix
+    ./ssh.nix
     ./java.nix
     ./python.nix
     ./rust.nix

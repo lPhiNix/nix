@@ -5,7 +5,7 @@
 # ------------------------------------------
 # Git nix home package and config by lPhiNix
 #
-{...}: {
+{config, ...}: {
   programs.git = {
     enable = true;
     settings = {
@@ -30,7 +30,7 @@
 
       # Sign commits/tags with the SSH key stored on physical key.
       gpg.format = "ssh";
-      user.signingKey = "~/.ssh/id_ed25519_sk";
+      user.signingKey = "~/.ssh/id_ed25519_sk_rk_github";
       commit.gpgsign = true;
       tag.gpgsign = true;
     };
