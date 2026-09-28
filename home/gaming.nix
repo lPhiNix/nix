@@ -17,7 +17,8 @@
       # ATLauncher: isolate its data under ~/.games instead of ~/.local/share.
       (writeShellScriptBin "atlauncher" ''
         export XDG_DATA_HOME="$HOME/.games"
-        mkdir -p "$XDG_DATA_HOME"
+        mkdir -p "$XDG_DATA_HOME/ATLauncher"
+        cd "$XDG_DATA_HOME/ATLauncher"
         exec ${pkgs.atlauncher-bin}/bin/atlauncher "$@"
       '')
 
