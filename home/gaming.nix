@@ -18,6 +18,7 @@
       (writeShellScriptBin "atlauncher" ''
         export XDG_DATA_HOME="$HOME/.games"
         mkdir -p "$XDG_DATA_HOME/ATLauncher"
+        export PATH="${pkgs.xrandr}/bin:$PATH"
         cd "$XDG_DATA_HOME/ATLauncher"
         exec ${pkgs.atlauncher-bin}/bin/atlauncher "$@"
       '')
