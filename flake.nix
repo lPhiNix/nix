@@ -27,6 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Automated NixOS installer over SSH (kexec + disko).
+    nixos-anywhere.url = "github:nix-community/nixos-anywhere";
+
     # Desktop control CLI (dotfiles tool) from an external flake.
     caelestia-cli = {
       url = "github:caelestia-dots/cli";
@@ -120,7 +123,12 @@
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Custom packages from ./pkgs, runnable via `nix run .#name`.
-    packages = eachSystem (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = eachSystem (system:
+      import ./pkgs nixpkgs.legacyPackages.${system}
+      // {
+        # Automated installer, runnable via `nix run .#nixos-anywhere`.
+        nixos-anywhere = inputs.nixos-anywhere.packages.${system}.default;
+      });
 
     # Overlays consumed by modules/core.nix and the standalone pkgs.
     overlays = import ./overlays {inherit inputs;};
