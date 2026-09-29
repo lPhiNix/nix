@@ -11,9 +11,12 @@
 HOST ?= $(shell hostname -s)
 # Absolute path to the flake (this directory).
 FLAKE := $(CURDIR)
+# SSH destination of a fresh machine for `make install` (root@ or nixos@).
+# Required; e.g. make install HOST=foo TARGET=root@10.0.0.5
+TARGET ?=
 
 # Declare targets with no matching file.
-.PHONY: switch boot test build fmt update check
+.PHONY: switch boot test build install fmt update check
 
 # Rebuild the system and switch to the new configuration (require sudo).
 switch:
@@ -31,6 +34,12 @@ test:
 # Build the configuration without activating it.
 build:
 	nixos-rebuild build --flake $(FLAKE)#$(HOST)
+
+# Install NixOS on a fresh machine via nixos-anywhere (wipes its disk).
+# Requires SSH access and passwordless sudo (or root) on the target.
+install:
+	@test -n "$(TARGET)" || { echo "Usage: make install HOST=<host> TARGET=root@<ip>"; exit 1; }
+	nix run .#nixos-anywhere -- --flake $(FLAKE)#$(HOST) --target-host $(TARGET)
 
 # Format all .nix files in the repo with Alejandra.
 fmt:
