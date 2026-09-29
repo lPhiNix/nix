@@ -73,6 +73,9 @@
   };
   boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
+  # Systemd-based stage 1: required for hardware LUKS tokens (FIDO2/PKCS#11/TPM2).
+  boot.initrd.systemd.enable = true;
+
   # Manage networking via NetworkManager.
   networking.networkmanager.enable = true;
 
