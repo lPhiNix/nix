@@ -5,7 +5,7 @@
 #                                    /___/
 #
 # Makefile for the PhiNix Nix configuration.
-# Shortcuts to switch, build, format, update and check the Nix flake.
+# Shortcuts to switch, boot, test, build, format, update and check the Nix flake.
 
 # Default host to target; falls back to the current short hostname.
 HOST ?= $(shell hostname -s)
@@ -13,11 +13,20 @@ HOST ?= $(shell hostname -s)
 FLAKE := $(CURDIR)
 
 # Declare targets with no matching file.
-.PHONY: switch build fmt update check
+.PHONY: switch boot test build fmt update check
 
 # Rebuild the system and switch to the new configuration (require sudo).
 switch:
 	sudo nixos-rebuild switch --flake $(FLAKE)#$(HOST)
+
+# Stage the new configuration for the next boot without activating it; useful
+# for kernel/initrd changes. Requires a reboot to take effect (require sudo).
+boot:
+	sudo nixos-rebuild boot --flake $(FLAKE)#$(HOST)
+
+# Activate the new configuration at runtime without touching the boot entry.
+test:
+	sudo nixos-rebuild test --flake $(FLAKE)#$(HOST)
 
 # Build the configuration without activating it.
 build:
