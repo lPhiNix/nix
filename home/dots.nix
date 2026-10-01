@@ -71,6 +71,9 @@
     "caelestia/user-config.fish" = {
       source = "${dotfiles}/.config/caelestia/user-config.fish";
     };
+    "caelestia/shell.json" = {
+      source = "${dotfiles}/.config/caelestia/shell.json";
+    };
     "caelestia/cli.json" = {
       source = "${dotfiles}/.config/caelestia/cli.json";
     };

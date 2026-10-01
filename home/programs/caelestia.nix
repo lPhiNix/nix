@@ -5,12 +5,6 @@
 # ---------------------------------------------------
 # Caelestia shell (+ CLI) nix home config by lPhiNix
 #
-# Wires up the official Home Manager module of the Caelestia shell, enabling
-# the desktop shell and its CLI, and seeds ~/.config/caelestia/shell.json once.
-#
-# shell.json is runtime state: the shell rewrites it with an atomic rename,
-# which replaces any symlink. It is therefore never linked, only seeded on
-# first activation; from then on the shell UI owns it.
 {
   config,
   lib,
@@ -37,13 +31,5 @@
       # dynamic (Material You) theming.
       cli.enable = true;
     };
-
-    # Seed shell.json from the dotfiles repository the first time only. It is
-    # deliberately not managed by Home Manager, so the shell UI can rewrite it.
-    home.activation.seedCaelestia = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      [ -e "$HOME/.config/caelestia/shell.json" ] \
-        || $DRY_RUN_CMD install -Dm644 ${inputs.dotfiles}/.config/caelestia/shell.json \
-             "$HOME/.config/caelestia/shell.json"
-    '';
   };
 }
