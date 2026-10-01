@@ -2,17 +2,20 @@
   "nodes": {
     "caelestia-cli": {
       "inputs": {
-        "caelestia-shell": "caelestia-shell",
+        "caelestia-shell": [
+          "caelestia-shell"
+        ],
         "nixpkgs": [
+          "caelestia-shell",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1790658992,
-        "narHash": "sha256-RlnaRABXPN+hgCBMF0i+oEMITfg9Hs9SndY4O2HrdX4=",
+        "lastModified": 1790397057,
+        "narHash": "sha256-vlub2V4edRngqU8yO44o7gi92j3jQXCcK+FtV7JROAg=",
         "owner": "caelestia-dots",
         "repo": "cli",
-        "rev": "efe0b085ac7a706466e530de60c1bfe323631270",
+        "rev": "bf37620d8ff4d99bbb244e592206d27d7bbe2d1f",
         "type": "github"
       },
       "original": {
@@ -23,12 +26,9 @@
     },
     "caelestia-shell": {
       "inputs": {
-        "caelestia-cli": [
-          "caelestia-cli"
-        ],
+        "caelestia-cli": "caelestia-cli",
         "m3shapes": "m3shapes",
         "nixpkgs": [
-          "caelestia-cli",
           "nixpkgs"
         ],
         "quickshell": "quickshell"
@@ -129,7 +129,6 @@
     "m3shapes": {
       "inputs": {
         "nixpkgs": [
-          "caelestia-cli",
           "caelestia-shell",
           "nixpkgs"
         ]
@@ -285,7 +284,6 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
-          "caelestia-cli",
           "caelestia-shell",
           "nixpkgs"
         ]
@@ -306,7 +304,7 @@
     },
     "root": {
       "inputs": {
-        "caelestia-cli": "caelestia-cli",
+        "caelestia-shell": "caelestia-shell",
         "disko": "disko",
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",

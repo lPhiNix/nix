@@ -12,7 +12,6 @@
 #
 # Generated/excluded on purpose:
 #   caelestia/shell.json     -> seeded by home.activation in a later step
-#   caelestia/cli.json       -> handled by programs.caelestia.cli.settings
 #   caelestia/monitors/      -> runtime
 #   hypr/scheme/current.lua  -> runtime
 #
@@ -67,7 +66,6 @@
       source = "${dotfiles}/.config/kitty";
       recursive = true;
     };
-    # caelestia is linked file by file: shell.json and cli.json are excluded.
     "caelestia/hypr-user.lua" = {
       source = "${dotfiles}/.config/caelestia/hypr-user.lua";
     };
@@ -76,6 +74,9 @@
     };
     "caelestia/user-config.fish" = {
       source = "${dotfiles}/.config/caelestia/user-config.fish";
+    };
+    "caelestia/cli.json" = {
+      source = "${dotfiles}/.config/caelestia/cli.json";
     };
   };
 in {

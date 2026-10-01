@@ -10,12 +10,22 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
-  home.packages = lib.mkIf config.features.desktop (with pkgs; [
-    # Caelestia desktop dotfiles and shell control CLI (from the overlay)
-    pkgs.caelestia
+  # Caelestia shell + CLI.
+  imports = [inputs.caelestia-shell.homeManagerModules.default];
 
+  programs.caelestia = lib.mkIf config.features.desktop {
+    enable = true;
+    systemd = {
+      enable = false; # The shell is started from the Hyprland config (execs.lua)
+      target = "graphical-session.target";
+    };
+    cli.enable = true; # The CLI (caelestia command) is required by the keybinds and the dynamic theming.
+  };
+
+  home.packages = lib.mkIf config.features.desktop (with pkgs; [
     kitty # Terminal
 
     nautilus # File manager

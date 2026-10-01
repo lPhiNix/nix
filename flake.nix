@@ -30,9 +30,9 @@
     # Automated NixOS installer over SSH (kexec + disko).
     nixos-anywhere.url = "github:nix-community/nixos-anywhere";
 
-    # Desktop control CLI (dotfiles tool) from an external flake.
-    caelestia-cli = {
-      url = "github:caelestia-dots/cli";
+    # Caelestia desktop shell + CLI (also provides the Home Manager module).
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -113,7 +113,6 @@
             self.overlays.additions
             self.overlays.modifications
             self.overlays.unstable-packages
-            self.overlays.caelestia-packages
           ];
         };
         extraSpecialArgs = {inherit inputs;};
