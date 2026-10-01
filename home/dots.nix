@@ -1,19 +1,15 @@
-#    _  ___        ___       __  ____ __
-#   / |/ (_)_ __  / _ \___  / /_/ _(_) /__ ___
-#  /    / /\ \ / / // / _ \/ __/ _/ / / -_|_-<
-# /_/|_/_//_\_\ /____/\___/\__/_//_/_/\__/___/
-# --------------------------------------------
-# Dots home config by lPhiNix
+#  _   _ _        ____        _    __ _ _
+# | \ | (_)_  __ |  _ \  ___ | |_ / _(_) | ___  ___
+# |  \| | \ \/ / | | | |/ _ \| __| |_| | |/ _ \/ __|
+# | |\  | |>  <  | |_| | (_) | |_|  _| | |  __/\__ \
+# |_| \_|_/_/\_\ |____/ \___/ \__|_| |_|_|\___||___/
+# --------------------------------------------------
+# Dots home module by lPhiNix
 #
 # Deploys the dotfiles repository into the home directory. The repository is a
 # flake input (flake = false), fetched over HTTPS and pinned in flake.lock. It
 # contains only static, tracked files, so whole directories can be linked
 # recursively.
-#
-# Generated/excluded on purpose:
-#   caelestia/shell.json     -> seeded by home.activation in a later step
-#   caelestia/monitors/      -> runtime
-#   hypr/scheme/current.lua  -> runtime
 #
 {
   config,

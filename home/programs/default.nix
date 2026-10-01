@@ -13,5 +13,6 @@
     ./kotlin.nix
     ./node.nix
     ./android.nix
+    ./caelestia.nix
   ];
 }
