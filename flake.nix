@@ -10,6 +10,10 @@
   description = "PhiNix Configuration";
 
   inputs = {
+    # Fetch the Git submodules of this flake (home/dotfiles) even when it is
+    # evaluated as the top-level flake. Without this, Nix leaves them empty.
+    self.submodules = true;
+
     # Stable nixpkgs channel: basis of the system.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     # Unstable nixpkgs, exposed to packages via an overlay.

@@ -19,6 +19,7 @@
     ./desktop.nix
     ./gaming.nix
     ./programs
+    ./dots.nix
   ];
 
   # Keep home files compatible with this release.
