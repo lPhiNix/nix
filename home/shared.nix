@@ -9,8 +9,11 @@
 # Single source of the home module list and the release version. Imported by
 # both the NixOS integration (home/default.nix) and the standalone entry
 # point (home/standalone.nix), so they can never drift apart.
-{...}: {
+{inputs, ...}: {
   imports = [
+    # Dotfiles (the lPhiNix/dotfiles flake) provide their own HM module.
+    inputs.dotfiles.homeManagerModules.default
+
     ./options.nix
     ./shell.nix
     ./cli.nix
@@ -19,8 +22,10 @@
     ./desktop.nix
     ./gaming.nix
     ./programs
-    ./dots.nix
   ];
+
+  # Deploy the dotfiles into the home directory.
+  dotfiles.enable = true;
 
   # Keep home files compatible with this release.
   home.stateVersion = "26.05";

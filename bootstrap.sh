@@ -7,12 +7,12 @@
 #
 # PhiNix Nix system bootstrap
 #
-#   curl -fsSL https://raw.githubusercontent.com/lPhiNix/nix/main/bootstrap.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/lPhiNix/phix/main/bootstrap.sh | bash
 #
-# Clones this flake into ~/.nix (only if missing) and applies it:
+# Clones this flake into ~/.phix (only if missing) and applies it:
 #
-#   - NixOS        -> nixos-rebuild switch --flake ~/.nix#<host>
-#   - other Linux  -> home-manager switch --flake ~/.nix#standalone-<arch>
+#   - NixOS        -> nixos-rebuild switch --flake ~/.phix#<host>
+#   - other Linux  -> home-manager switch --flake ~/.phix#standalone-<arch>
 #
 # The machine must already be installed: this never touches disks (no
 # partitioning). The host defaults to `hostname -s`. Repos are public but
@@ -20,8 +20,8 @@
 
 set -euo pipefail
 
-REPO="git@github.com:lPhiNix/nix.git"
-NIX_DIR="$HOME/.nix"
+REPO="git@github.com:lPhiNix/phix.git"
+NIX_DIR="$HOME/.phix"
 HOST="$(hostname -s)"
 NIX=(nix --extra-experimental-features "nix-command flakes")
 

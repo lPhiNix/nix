@@ -1,13 +1,13 @@
-#     ____  __    _ _   ___
-#    / __ \/ /_  (_) | / (_)  __
-#   / /_/ / __ \/ /  |/ / / |/_/
-#  / ____/ / / / / /|  / />  <
-# /_/   /_/ /_/_/_/ |_/_/_/|_|
-# ------------------------------
+#     ____  __    _
+#    / __ \/ /_  (_)  __
+#   / /_/ / __ \/ / |/_/
+#  / ____/ / / / />  <
+# /_/   /_/ /_/_/_/|_|
+# ----------------------------
 # Nix configuration by lPhiNix
 #
 {
-  description = "PhiNix Configuration";
+  description = "Phix: nix configuration by lPhiNix";
 
   inputs = {
     # Stable nixpkgs channel: basis of the system.
@@ -36,11 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Personal dotfiles, consumed as a plain source tree (no flake outputs).
-    # Pinned in flake.lock and exposed to the home modules as inputs.dotfiles.
+    # Personal dotfiles, consumed as a flake that provides a Home Manager
+    # module (homeManagerModules.default) deploying every dotfile.
     dotfiles = {
       url = "github:lPhiNix/dotfiles";
-      flake = false;
     };
   };
 
