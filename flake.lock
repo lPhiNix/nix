@@ -89,6 +89,22 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790864065,
+        "narHash": "sha256-0jEknLHGJ1NlqSDI9Z8ZWrYyDU4o4ZOzRhTD2FLaLjU=",
+        "owner": "lPhiNix",
+        "repo": "dotfiles",
+        "rev": "50236e774d52ccde1bbeae7490bebec6bc09d20d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lPhiNix",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -292,6 +308,7 @@
       "inputs": {
         "caelestia-cli": "caelestia-cli",
         "disko": "disko",
+        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "nixos-anywhere": "nixos-anywhere",
         "nixpkgs": "nixpkgs_2",

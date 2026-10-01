@@ -9,6 +9,7 @@
 {
   config,
   lib,
+  inputs,
   ...
 }: {
   options.modules.home.enable = lib.mkEnableOption "Home Manager";
@@ -16,6 +17,9 @@
   config = lib.mkIf config.modules.home.enable {
     # Use the system nixpkgs instead of letting home-manager build its own.
     home-manager.useGlobalPkgs = true;
+
+    # Expose the flake inputs to the home modules (e.g. the dotfiles source).
+    home-manager.extraSpecialArgs = {inherit inputs;};
 
     home-manager.users.${config.myConfig.username} = {
       # Shared module list + release version (home/shared.nix).

@@ -10,10 +10,6 @@
   description = "PhiNix Configuration";
 
   inputs = {
-    # Fetch the Git submodules of this flake (home/dotfiles) even when it is
-    # evaluated as the top-level flake. Without this, Nix leaves them empty.
-    self.submodules = true;
-
     # Stable nixpkgs channel: basis of the system.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     # Unstable nixpkgs, exposed to packages via an overlay.
@@ -38,6 +34,13 @@
     caelestia-cli = {
       url = "github:caelestia-dots/cli";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Personal dotfiles, consumed as a plain source tree (no flake outputs).
+    # Pinned in flake.lock and exposed to the home modules as inputs.dotfiles.
+    dotfiles = {
+      url = "github:lPhiNix/dotfiles";
+      flake = false;
     };
   };
 
@@ -113,6 +116,7 @@
             self.overlays.caelestia-packages
           ];
         };
+        extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home/standalone.nix
           {
