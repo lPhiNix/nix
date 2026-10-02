@@ -22,6 +22,19 @@
     # Steam with 32-bit libraries and hardware acceleration.
     programs.steam = {
       enable = true;
+      # Force PRIME render offload (NVIDIA dGPU) on Steam and the games it
+      # launches, mirroring the nvidia-offload wrapper. Only applies on hosts
+      # where PRIME is enabled; elsewhere Steam keeps its defaults.
+      package = lib.mkIf config.myConfig.gpu.prime.enable (
+        pkgs.steam.override {
+          extraEnv = {
+            __NV_PRIME_RENDER_OFFLOAD = "1";
+            __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
+          };
+        }
+      );
     };
 
     # nix-ld: lets generic dynamically-linked binaries run on NixOS, whose
