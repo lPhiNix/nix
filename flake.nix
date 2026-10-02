@@ -15,12 +15,6 @@
     # Unstable nixpkgs, exposed to packages via an overlay.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Home Manager, pinned to the same nixpkgs.
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Declarative disk partitioning, pinned to the same nixpkgs.
     disko = {
       url = "github:nix-community/disko";
@@ -29,6 +23,19 @@
 
     # Automated NixOS installer over SSH (kexec + disko).
     nixos-anywhere.url = "github:nix-community/nixos-anywhere";
+
+    # Secret management: encrypted secrets committed in the repo, decrypted
+    # at activation (see modules/secrets.nix).
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Home Manager, pinned to the same nixpkgs.
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Caelestia desktop shell + CLI (also provides the Home Manager module).
     caelestia-shell = {

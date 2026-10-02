@@ -19,6 +19,7 @@
     ./audio.nix
     ./remote.nix
     ./secure.nix
+    ./secrets.nix
     ./desktop.nix
     ./gaming.nix
     ./virtualisation.nix

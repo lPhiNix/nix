@@ -15,7 +15,7 @@ FLAKE := $(CURDIR)
 TARGET ?=
 
 # Declare targets with no matching file.
-.PHONY: switch boot test build install fmt update check
+.PHONY: switch boot test build install fmt update check secrets
 
 # Rebuild the system and switch to the new configuration (require sudo).
 switch:
@@ -36,9 +36,16 @@ build:
 
 # Install NixOS on a fresh machine via nixos-anywhere (wipes its disk).
 # Requires SSH access and passwordless sudo (or root) on the target.
+# --extra-files seeds the host age key at /var/lib/sops-nix/key.txt so
+# sops-nix can decrypt its secrets on first boot.
 install:
 	@test -n "$(TARGET)" || { echo "Usage: make install HOST=<host> TARGET=root@<ip>"; exit 1; }
-	nix run .#nixos-anywhere -- --flake $(FLAKE)#$(HOST) --target-host $(TARGET)
+	nix run .#nixos-anywhere -- --flake $(FLAKE)#$(HOST) --target-host $(TARGET) \
+		--extra-files $(FLAKE)/bootstrap/$(HOST)
+
+# Edit the encrypted secrets of a host with sops (requires an admin key).
+secrets:
+	sops $(FLAKE)/hosts/$(HOST)/secrets.yaml
 
 # Format all .nix files in the repo with Alejandra.
 fmt:

@@ -50,5 +50,16 @@
         })
       ];
     };
+
+    # Server identity from the secrets capability (stable across reinstalls).
+    # Disable auto-generation so sshd-keygen does not race or overwrite the
+    # sops-managed key.
+    services.openssh.generateHostKeys = lib.mkIf config.modules.secrets.enable false;
+    services.openssh.hostKeys = lib.mkIf config.modules.secrets.enable [
+      {
+        type = "ed25519";
+        path = config.modules.secrets.paths.hostKey;
+      }
+    ];
   };
 }

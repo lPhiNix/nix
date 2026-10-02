@@ -1,1 +1,4 @@
 /result
+
+# Per-host age keys injected at install time (never commit).
+bootstrap/

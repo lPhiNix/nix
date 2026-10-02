@@ -6,22 +6,28 @@
 # ----------------------------------------
 # Nix users module by lPhiNix
 #
-# Creates the primary user account. Authentication (password, SSH keys) is
-# intentionally host-specific: add authorizedKeys or a hashedPasswordFile to
-# the host once logins are set up, so no credentials live in the base layer.
+# Creates the primary user account. SSH authorized keys stay host-specific
+# (hosts/<name>/keys.nix); the login password comes from the secrets
+# capability when it is enabled.
 #
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
-  users.users.${config.myConfig.username} = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "kvm"] ++ config.myConfig.extraGroups;
-    shell = pkgs.fish; # registered system-wide in shell.nix
-  };
+  users.users.${config.myConfig.username} =
+    {
+      isNormalUser = true;
+      extraGroups = ["wheel" "networkmanager" "kvm"] ++ config.myConfig.extraGroups;
+      shell = pkgs.fish; # registered system-wide in shell.nix
+    }
+    // lib.optionalAttrs config.modules.secrets.enable {
+      # Declarative password read from the secret at activation: no manual
+      # 'passwd' and no first-boot lockout.
+      hashedPasswordFile = config.modules.secrets.paths.passwordHash;
+    };
 
-  # Allow 'passwd' to set a password on first boot. Swap this for
-  # users.users.<name>.hashedPasswordFile once secrets are introduced.
-  users.mutableUsers = true;
+  # A declarative password requires an immutable account.
+  users.mutableUsers = !config.modules.secrets.enable;
 }

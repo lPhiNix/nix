@@ -16,6 +16,9 @@
     # Console / login experience
     ./console.nix
     ./ly.nix
+
+    # Authorized SSH keys (mesh).
+    ./keys.nix
   ];
 
   myConfig = {
