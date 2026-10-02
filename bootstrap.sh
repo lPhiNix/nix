@@ -9,14 +9,15 @@
 #
 #   curl -fsSL https://raw.githubusercontent.com/lPhiNix/phix/main/bootstrap.sh | bash
 #
-# Clones this flake into ~/.phix (only if missing) and applies it:
+# Applies this flake on an already-installed machine (it never touches disks):
 #
 #   - NixOS        -> nixos-rebuild switch --flake ~/.phix#<host>
 #   - other Linux  -> home-manager switch --flake ~/.phix#standalone
 #
-# The machine must already be installed: this never touches disks (no
-# partitioning). The host defaults to 'hostname -s'. Repos are public but
-# cloned over SSH, so a working GitHub SSH key is required.
+# The host defaults to 'hostname -s'. The repo is private and cloned over SSH,
+# so a working GitHub SSH key is required. NixOS hosts use sops-nix: if the
+# host's age key is not yet at /var/lib/sops-nix/key.txt, set PHIX_AGE_KEY to
+# its path to inject it, or the script explains what to do and stops.
 
 set -euo pipefail
 
@@ -32,8 +33,8 @@ command -v git >/dev/null 2>&1 || { echo "!! 'git' is missing."; exit 1; }
 
 if ! git ls-remote "$REPO" HEAD >/dev/null 2>&1; then
   echo "!! Cannot reach $REPO over SSH."
-  echo "   Set up your GitHub SSH key (the repos are public, but they are"
-  echo "   cloned over SSH) and try again."
+  echo "   Set up your GitHub SSH key (a resident YubiKey key via 'ssh-keygen -K',"
+  echo "   or a normal key) and try again."
   exit 1
 fi
 
@@ -57,6 +58,25 @@ if [ -e /etc/NIXOS ]; then
     echo "!! Host '$HOST' is not in nixosConfigurations. Available: $hosts"
     exit 1
   fi
+
+  # sops-nix needs the host's age key to decrypt its secrets. The key is not in
+  # the repo; inject it once (make install does this automatically).
+  if [ -e "$NIX_DIR/hosts/$HOST/secrets.yaml" ] && [ ! -e /var/lib/sops-nix/key.txt ]; then
+    if [ -n "${PHIX_AGE_KEY:-}" ] && [ -e "$PHIX_AGE_KEY" ]; then
+      echo ">> Installing host age key from PHIX_AGE_KEY"
+      sudo install -D -m600 "$PHIX_AGE_KEY" /var/lib/sops-nix/key.txt
+    else
+      echo "!! '$HOST' uses sops-nix but /var/lib/sops-nix/key.txt is missing."
+      echo "   This key decrypts hosts/$HOST/secrets.yaml and is not in the repo."
+      echo "   Options:"
+      echo "     - Fresh machine: provision it with 'make install' (injects the key)."
+      echo "     - Existing machine: copy it once, e.g."
+      echo "         sudo install -D -m600 /path/to/key.txt /var/lib/sops-nix/key.txt"
+      echo "       or re-run with: PHIX_AGE_KEY=/path/to/key.txt"
+      exit 1
+    fi
+  fi
+
   sudo nixos-rebuild switch --flake "$NIX_DIR#$HOST"
 else
   case "$(uname -m)" in
