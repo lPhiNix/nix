@@ -49,20 +49,18 @@
     home-manager,
     ...
   } @ inputs: let
-    # Architectures for the flake-level outputs (formatter, packages,
-    # standalone home configs). NixOS hosts are NOT tied to this: each one
-    # declares nixpkgs.hostPlatform in its own hardware.nix.
-    systems = ["x86_64-linux" "aarch64-linux"];
+    # Library helpers: nixpkgs with our overlays, and directory discovery.
+    phixLib = import ./lib {inherit nixpkgs self;};
+
+    # Architectures for the flake-level outputs (formatter, packages). NixOS
+    # hosts and standalone configs are NOT tied to this: each one declares its
+    # own platform.
+    systems = ["x86_64-linux"];
     eachSystem = f: nixpkgs.lib.genAttrs systems (system: f system);
 
     # --- Host discovery ---
     # Every subdirectory of hosts/ that contains a default.nix is a machine.
-    hostEntries = builtins.readDir ./hosts;
-    isHost = name:
-      hostEntries.${name}
-      == "directory"
-      && builtins.pathExists ./hosts/${name}/default.nix;
-    hostNames = builtins.filter isHost (builtins.attrNames hostEntries);
+    hostNames = phixLib.discovered ./hosts;
 
     # Build a host: its own directory plus the shared system modules.
     # No explicit 'system' argument: it is derived from the host's own
@@ -88,42 +86,12 @@
       };
 
     # --- Standalone Home Manager (outside NixOS) ---
-    # Same home modules, one entry per architecture, valid on any Linux with
-    # Nix (no host defined). Feature flags are plain preferences.
-    featuresBySystem = {
-      x86_64-linux = {
-        desktop = true;
-        gaming = false;
-        graphics = true;
-      };
-      aarch64-linux = {
-        desktop = false;
-        gaming = false;
-        graphics = true;
-      };
+    # A single config, for any Linux x86_64 with Nix (no host defined).
+    standaloneConfig = home-manager.lib.homeManagerConfiguration {
+      pkgs = phixLib.mkPkgs "x86_64-linux";
+      extraSpecialArgs = {inherit inputs;};
+      modules = [./home/standalone.nix];
     };
-
-    mkStandalone = system: features:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [
-            self.overlays.additions
-            self.overlays.modifications
-            self.overlays.unstable-packages
-          ];
-        };
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./home/standalone.nix
-          {
-            home.username = "phinix";
-            home.homeDirectory = "/home/phinix";
-            inherit features;
-          }
-        ];
-      };
   in {
     # Formatter used by 'nix fmt' (Alejandra), per system.
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
@@ -136,19 +104,17 @@
         nixos-anywhere = inputs.nixos-anywhere.packages.${system}.default;
       });
 
-    # Overlays consumed by modules/core.nix and the standalone pkgs.
+    # Library helpers (overlay list, mkPkgs, directory discovery).
+    lib = phixLib;
+
+    # Overlays consumed by modules/core.nix and lib.mkPkgs.
     overlays = import ./overlays {inherit inputs;};
 
     # Real machines, discovered automatically from hosts/.
     nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
 
-    # Host-agnostic Home Manager configs, one per architecture:
-    #   home-manager switch --flake ~/.phix#standalone-x86_64-linux
-    #   home-manager switch --flake ~/.phix#standalone-aarch64-linux
-    homeConfigurations = nixpkgs.lib.listToAttrs (map (system: {
-        name = "standalone-${system}";
-        value = mkStandalone system featuresBySystem.${system};
-      })
-      systems);
+    # Standalone Home Manager config, for any Linux x86_64 with Nix:
+    #   home-manager switch --flake ~/.phix#standalone
+    homeConfigurations.standalone = standaloneConfig;
   };
 }

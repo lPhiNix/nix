@@ -13,7 +13,7 @@
   additions = final: _prev: import ../pkgs final;
 
   # Placeholder for overriding existing nixpkgs packages.
-  modifications = final: prev: {};
+  modifications = final: _prev: {};
 
   # Expose nixpkgs-unstable as pkgs.unstablePkgs (with unfree allowed).
   unstable-packages = final: _prev: {

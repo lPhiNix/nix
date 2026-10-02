@@ -22,7 +22,6 @@ Then apply the configuration:
 # NixOS
 sudo nixos-rebuild switch --flake ~/.phix#$(hostname -s)
 
-# other Linux (Home Manager; pick your architecture)
-home-manager switch --flake ~/.phix#standalone-x86_64-linux
-home-manager switch --flake ~/.phix#standalone-aarch64-linux
+# other Linux (Home Manager)
+home-manager switch --flake ~/.phix#standalone
 ```

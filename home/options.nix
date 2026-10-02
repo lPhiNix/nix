@@ -7,14 +7,37 @@
 # --------------------------------------------------
 # Home feature toggles by lPhiNix
 #
-# Typed switches for the optional home package sets. They are set from the
-# NixOS modules.*.enable booleans (home/default.nix) or directly when used
-# standalone (flake.nix), so the same home modules work in both contexts.
+# Typed switches for the optional home package sets. The feature names live
+# here; inside NixOS they mirror the modules.*.enable booleans and in
+# standalone a config sets them directly (home/standalone/), so the same home
+# modules work in both contexts.
 #
-{lib, ...}: {
-  options.features = {
-    desktop = lib.mkEnableOption "desktop home packages";
-    gaming = lib.mkEnableOption "gaming home packages";
-    graphics = lib.mkEnableOption "graphics home packages";
+{
+  config,
+  lib,
+  osConfig ? null,
+  ...
+}: let
+  # Single source of the feature names.
+  features = ["desktop" "gaming" "graphics"];
+in {
+  # One typed enable switch per feature.
+  options.features =
+    lib.genAttrs features
+    (name: lib.mkEnableOption "${name} home packages");
+
+  # Inside NixOS, mirror the system modules.<name>.enable switches. In
+  # standalone (osConfig == null) the config sets them directly.
+  config = lib.mkIf (osConfig != null) {
+    assertions =
+      map (name: {
+        assertion = builtins.hasAttr name osConfig.modules;
+        message = "home feature '${name}' has no matching modules.${name}.enable option.";
+      })
+      features;
+
+    features =
+      lib.genAttrs features
+      (name: osConfig.modules.${name}.enable);
   };
 }

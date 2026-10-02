@@ -4,21 +4,23 @@
 # | |\  | |>  <  |  _  | (_) | | | | | |  __/
 # |_| \_|_/_/\_\ |_| |_|\___/|_| |_| |_|\___|
 # -------------------------------------------
-# Standalone home layer by lPhiNix
+# Standalone Home Manager layer by lPhiNix
 #
-# Entry point to reuse the same home modules outside NixOS, via Home Manager
-# standalone on any Linux with Nix:
-#
-#   home-manager switch --flake ~/.phix#standalone-<arch>
-#
-# The same modules as the NixOS integration. Their desktop/gaming/graphics
-# packages are gated through the 'features' specialArg (injected from
-# flake.nix), so they work without NixOS and without defining a host.
+# The standalone config, for any Linux x86_64 with Nix:
+#   home-manager switch --flake ~/.phix#standalone
 {...}: {
-  # Shared module list + release version (home/shared.nix). The 'features'
-  # toggles are set by the caller (flake.nix).
+  # Shared module list + release version (home/shared.nix).
   imports = [./shared.nix];
 
   # Required by Home Manager outside NixOS (session vars/paths for GUI apps).
   targets.genericLinux.enable = true;
+
+  home.username = "phinix";
+  home.homeDirectory = "/home/phinix";
+
+  features = {
+    desktop = true;
+    gaming = false;
+    graphics = true;
+  };
 }

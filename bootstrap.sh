@@ -12,7 +12,7 @@
 # Clones this flake into ~/.phix (only if missing) and applies it:
 #
 #   - NixOS        -> nixos-rebuild switch --flake ~/.phix#<host>
-#   - other Linux  -> home-manager switch --flake ~/.phix#standalone-<arch>
+#   - other Linux  -> home-manager switch --flake ~/.phix#standalone
 #
 # The machine must already be installed: this never touches disks (no
 # partitioning). The host defaults to 'hostname -s'. Repos are public but
@@ -60,14 +60,13 @@ if [ -e /etc/NIXOS ]; then
   sudo nixos-rebuild switch --flake "$NIX_DIR#$HOST"
 else
   case "$(uname -m)" in
-    x86_64) system="x86_64-linux" ;;
-    aarch64 | arm64) system="aarch64-linux" ;;
+    x86_64) ;;
     *)
-      echo "!! Unsupported architecture: $(uname -m)."
+      echo "!! Unsupported architecture: $(uname -m). Only x86_64-linux is supported."
       exit 1
       ;;
   esac
-  target="standalone-$system"
+  target="standalone"
   cfgs="$("${NIX[@]}" eval --json "$NIX_DIR#homeConfigurations" --apply 'builtins.attrNames' 2>/dev/null || echo '[]')"
   if ! printf '%s' "$cfgs" | grep -q "\"$target\""; then
     echo "!! homeConfigurations.\"$target\" does not exist. Available: $cfgs"

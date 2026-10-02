@@ -24,14 +24,6 @@
     home-manager.users.${config.myConfig.username} = {
       # Shared module list + release version (home/shared.nix).
       imports = [./shared.nix];
-
-      # Typed toggles (see home/options.nix), bridged from the NixOS
-      # modules.*.enable booleans so the same modules also work outside NixOS.
-      features = {
-        desktop = config.modules.desktop.enable;
-        gaming = config.modules.gaming.enable;
-        graphics = config.modules.graphics.enable;
-      };
     };
   };
 }

@@ -22,11 +22,7 @@
       # Allow proprietary software (e.g. Steam, browsers).
       allowUnfree = true;
     };
-    overlays = [
-      inputs.self.overlays.additions
-      inputs.self.overlays.modifications
-      inputs.self.overlays.unstable-packages
-    ];
+    overlays = inputs.self.lib.overlayList;
   };
 
   # Nix daemon/client settings: flakes enabled, store auto-optimized.
