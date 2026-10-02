@@ -19,7 +19,7 @@
   ...
 }: let
   # Single source of the feature names.
-  features = ["desktop" "gaming" "graphics"];
+  features = ["desktop" "gaming" "graphics" "virtualisation"];
 in {
   # One typed enable switch per feature.
   options.features =

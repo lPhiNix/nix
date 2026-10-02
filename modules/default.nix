@@ -21,6 +21,7 @@
     ./secure.nix
     ./desktop.nix
     ./gaming.nix
+    ./virtualisation.nix
     ./power.nix
     ./shell.nix
     ./users.nix

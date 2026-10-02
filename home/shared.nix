@@ -21,6 +21,7 @@
     ./graphics.nix
     ./desktop.nix
     ./gaming.nix
+    ./virtualisation.nix
     ./programs
   ];
 

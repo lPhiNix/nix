@@ -40,6 +40,7 @@
   boot.initrd.luks.devices."main".crypttabExtraOpts = ["fido2-device=auto" "token-timeout=5"];
 
   modules.gaming.enable = true;
+  modules.virtualisation.enable = true;
 
   system.stateVersion = "26.05";
 }
