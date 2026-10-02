@@ -17,7 +17,8 @@
     ./core.nix
     ./graphics.nix
     ./audio.nix
-    ./network.nix
+    ./remote.nix
+    ./secure.nix
     ./desktop.nix
     ./gaming.nix
     ./power.nix

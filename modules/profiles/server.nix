@@ -14,6 +14,7 @@
   ...
 }: {
   config = lib.mkIf (lib.elem "server" config.myConfig.profiles) {
-    modules.network.enable = lib.mkDefault true;
+    modules.remote.enable = lib.mkDefault true;
+    modules.secure.enable = lib.mkDefault true;
   };
 }

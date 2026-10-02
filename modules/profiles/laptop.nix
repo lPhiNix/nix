@@ -18,7 +18,8 @@
   config = lib.mkIf (lib.elem "laptop" config.myConfig.profiles) {
     modules.desktop.enable = lib.mkDefault true;
     modules.audio.enable = lib.mkDefault true;
-    modules.network.enable = lib.mkDefault true;
+    modules.remote.enable = lib.mkDefault true;
+    modules.secure.enable = lib.mkDefault true;
     modules.home.enable = lib.mkDefault true;
     modules.power.enable = lib.mkDefault true;
   };

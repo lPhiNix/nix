@@ -15,7 +15,7 @@
   lib,
   ...
 }: {
-  options.modules.power.enable = lib.mkEnableOption "Power management (battery, CPU profiles)";
+  options.modules.power.enable = lib.mkEnableOption "Power (battery, CPU profiles)";
 
   config = lib.mkIf config.modules.power.enable {
     # Battery reporting and CPU power profiles.
