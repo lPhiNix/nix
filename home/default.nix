@@ -4,7 +4,7 @@
 # | |\  | |>  <  |  _  | (_) | | | | | |  __/
 # |_| \_|_/_/\_\ |_| |_|\___/|_| |_| |_|\___|
 # -------------------------------------------
-# Nix home manager configuration by lPhiNix
+# Nix Home Manager configuration by lPhiNix
 #
 {
   config,
@@ -15,7 +15,7 @@
   options.modules.home.enable = lib.mkEnableOption "Home Manager";
 
   config = lib.mkIf config.modules.home.enable {
-    # Use the system nixpkgs instead of letting home-manager build its own.
+    # Use the system nixpkgs instead of letting Home Manager build its own.
     home-manager.useGlobalPkgs = true;
 
     # Expose the flake inputs to the home modules (e.g. the dotfiles source).

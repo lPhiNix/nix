@@ -7,7 +7,8 @@
 # Nix laptop profile by lPhiNix
 #
 # Sensible defaults for a laptop: a full desktop environment plus remote
-# access. Everything is mkDefault so a host can always override it.
+# access and power management. Everything is mkDefault so a host can
+# always override it.
 #
 {
   config,

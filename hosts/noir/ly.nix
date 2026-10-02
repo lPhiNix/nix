@@ -7,10 +7,10 @@
 # Noir ly (display manager) nix theme by lPhiNix
 #
 {...}: let
-  # VGA/PuTTY default 16-colour palette, with bright-black (#8) darkened
+  # VGA/PuTTY default 16-color palette, with bright-black (#8) darkened
   # from 555555 to 1a1a1a. The VT kernel collapses dark neutrals to
   # bright-black, so this is what makes the colormix animation read
-  # near-black on the VT instead of the default grey.
+  # near-black on the VT instead of the default gray.
   vgaPalette = [
     "000000"
     "aa0000"

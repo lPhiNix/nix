@@ -37,7 +37,7 @@
     papirus-icon-theme # Papirus icons
     papirus-folders # Papirus folder color tool
     adwaita-icon-theme # Adwaita (GNOME) icons
-    kdePackages.breeze # Cursor Breeze de KDE (breeze_cursors)
+    kdePackages.breeze # KDE Breeze cursor theme (breeze_cursors)
     nerd-fonts.jetbrains-mono # JetBrains Mono with Nerd glyphs
   ]);
 }

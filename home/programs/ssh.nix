@@ -1,9 +1,9 @@
-#    _  ___        ____    __
-#   / |/ (_)_ __  / __/__ / /
-#  /    / /\ \ / _\ \(_-</ _ \
+#    _  ___        __________ __
+#   / |/ (_)_ __  / __/ __/ // /
+#  /    / /\ \ / _\ \_\ \/ _  /
 # /_/|_/_//_\_\ /___/___/_//_/
 # -------------------------------------
-# Ssh nix home client config by lPhiNix
+# SSH nix home client config by lPhiNix
 #
 # YubiKey resident keys (FIDO2). Enroll one per purpose/host with:
 #
@@ -11,14 +11,14 @@
 #     -O application=ssh:<name> -C "<name>" \
 #     -f ~/.ssh/id_ed25519_sk_rk_<name>
 #
-# On any other machine download all of them with `ssh-keygen -K`; that writes
+# On any other machine download all of them with 'ssh-keygen -K'; that writes
 # ~/.ssh/id_ed25519_sk_rk_<name> with comment "ssh:<name>". To remove a stale
 # credential before re-enrolling:
 #
 #   ykman fido credentials list
 #   ykman fido credentials delete <id>
 #
-# Then reference each key with `IdentityFile` under its matching Host block.
+# Then reference each key with 'IdentityFile' under its matching Host block.
 #
 {
   config,
@@ -29,7 +29,7 @@
     enable = true;
 
     # Declare the legacy implicit defaults explicitly instead of letting
-    # home-manager inject them (the implicit set is deprecated upstream).
+    # Home Manager inject them (the implicit set is deprecated upstream).
     enableDefaultConfig = false;
 
     settings = {

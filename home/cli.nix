@@ -1,9 +1,9 @@
-#    _  ___        ________
-#   / |/ (_)_ __  / ___/ (_)
-#  /    / /\ \ / / /__/ / /
-# /_/|_/_//_\_\  \___/_/_/
+#    _  ___        _______   ____
+#   / |/ (_)_ __  / ___/ /  /  _/
+#  /    / /\ \ / / /__/ /___/ /
+# /_/|_/_//_\_\  \___/____/___/
 # --------------------------------
-# Cli nix home packages by lPhiNix
+# CLI nix home packages by lPhiNix
 #
 {pkgs, ...}: {
   home.packages = with pkgs; [
@@ -13,11 +13,11 @@
     fd # Modern find wrapper
     ripgrep # Modern grep wrapper
 
-    pkgs.unstablePkgs.yazi # Cli file manager
+    pkgs.unstablePkgs.yazi # CLI file manager
 
-    fzf # Cli fuzzy finder
+    fzf # CLI fuzzy finder
 
-    btop # Cli system monitor
+    btop # CLI system monitor
 
     curl # HTTP I/O tool
     wget # HTTP/FTP I/O tool

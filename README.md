@@ -1,6 +1,6 @@
 # Phix
 
-A multi-host NixOS flake: modular system and Home Manager configuration, integrated dotfiles, declarative disks (disko) and automated provisioning (nixos-anywhere), usable on NixOS or any Linux with Nix.
+My personal declarative NixOS and Home Manager configuration for multiple hosts, integrating dotfiles, disk layouts with disko, and reproducible provisioning with nixos-anywhere. It runs on NixOS and on any Linux system with Nix.
 
 ## Installation
 

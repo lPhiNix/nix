@@ -29,7 +29,7 @@
     ];
   };
 
-  # Nix daemon/client settings: flakes enabled, store auto-optimised.
+  # Nix daemon/client settings: flakes enabled, store auto-optimized.
   nix = {
     settings = {
       # Enable the experimental flakes and nix-command features.
@@ -38,8 +38,8 @@
       flake-registry = "";
       # Automatically deduplicate identical store paths.
       auto-optimise-store = true;
-      # Bound concurrent builds to cap peak RAM (16 GiB machine): at most
-      # 4 builds running, each using up to 4 cores.
+      # Bound concurrent builds: at most 4 builds running, each using up to
+      # 4 cores.
       max-jobs = 4;
       cores = 4;
     };
@@ -81,7 +81,7 @@
   # Allow non-redistributable firmware blobs.
   hardware.enableRedistributableFirmware = true;
 
-  # Shared defaults for host data. Any host can override these directly
+  # Shared defaults for host data. Any host can override these directly.
   time.timeZone = lib.mkDefault "Europe/Madrid";
   console.keyMap = lib.mkDefault "us";
 

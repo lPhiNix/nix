@@ -16,7 +16,7 @@
       # Default branch
       init.defaultBranch = "main";
 
-      # Pull behaviour (always rebase)
+      # Pull behavior (always rebase)
       pull.rebase = true;
 
       # Always prune deleted remote branches on fetch.
@@ -28,7 +28,7 @@
       # Force SSH for github.com instead of HTTPS
       url."git@github.com:".insteadOf = "https://github.com/";
 
-      # Sign commits/tags with the SSH key stored on physical key.
+      # Sign commits/tags with the SSH key stored on a physical key.
       gpg.format = "ssh";
       user.signingKey = "~/.ssh/id_ed25519_sk_rk_github";
       commit.gpgsign = true;

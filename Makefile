@@ -3,14 +3,14 @@
 #  / ___/ _ \/ /\ \ / / /|_/ / _ `/  '_/ -_) _/ / / -_)
 # /_/  /_//_/_//_\_\ /_/  /_/\_,_/_/\_\\__/_//_/_/\__/
 #
-# Makefile for the PhiNix Nix configuration.
-# Shortcuts to switch, boot, test, build, format, update and check the Nix flake.
+# Makefile for phix configuration.
+# Shortcuts to switch, boot, test, build, install, format, update and check the Nix flake.
 
 # Default host to target; falls back to the current short hostname.
 HOST ?= $(shell hostname -s)
 # Absolute path to the flake (this directory).
 FLAKE := $(CURDIR)
-# SSH destination of a fresh machine for `make install` (root@ or nixos@).
+# SSH destination of a fresh machine for 'make install' (root@ or nixos@).
 # Required; e.g. make install HOST=foo TARGET=root@10.0.0.5
 TARGET ?=
 

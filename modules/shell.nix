@@ -6,9 +6,8 @@
 # -------------------------------------
 # Nix shell module by lPhiNix
 #
-# Registers the interactive shell used by the primary user account (see
-# users.nix). Enabling it system-wide adds fish to /etc/shells and ships its
-# completions.
+# Provides the system-wide fish shell used by the primary user account (see
+# users.nix).
 #
 {...}: {
   # Register fish as a system shell (adds it to /etc/shells and completions).

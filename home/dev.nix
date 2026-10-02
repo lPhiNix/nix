@@ -7,7 +7,7 @@
 #
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    neovim # Cli IDE
+    neovim # CLI IDE
 
     # Neovim tooling (LSPs managed by Nix, not Mason)
     tree-sitter # Parser builder used by nvim-treesitter (CLI)
@@ -19,7 +19,7 @@
     nixfmt # Nix formatter
     statix # Nix linter
 
-    pkgs.unstablePkgs.opencode # Cli local/remote AI coding client
+    pkgs.unstablePkgs.opencode # CLI local/remote AI coding client
 
     direnv # Environments vars loader
 

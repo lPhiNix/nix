@@ -18,8 +18,8 @@
 }: let
   gpu = config.myConfig.gpu;
 in {
-  # Graphics follows the same toggle pattern as the other feature modules.
-  # Enabled by default whenever a GPU is configured, but a host can override it.
+  # Graphics support, gated behind modules.graphics.enable. It defaults to
+  # enabled whenever a GPU is configured, but a host can override it.
   options.modules.graphics.enable = lib.mkOption {
     type = lib.types.bool;
     default = config.myConfig.gpu.provider != null;

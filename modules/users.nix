@@ -21,7 +21,7 @@
     shell = pkgs.fish; # registered system-wide in shell.nix
   };
 
-  # Allow `passwd` to set a password on first boot. Swap this for
+  # Allow 'passwd' to set a password on first boot. Swap this for
   # users.users.<name>.hashedPasswordFile once secrets are introduced.
   users.mutableUsers = true;
 }

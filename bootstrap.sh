@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-#    _  ___        ___            __      __
-#   / |/ (_)_ __  / _ )___  ___  / /____ / /________ ____
-#  /    / /\ \ / / _  / _ \/ _ \/ __(_-</ __/ __/ _ `/ _ \
-# /_/|_/_//_\_\ /____/\___/\___/\__/___/\__/_/  \_,_/ .__/
-#                                                  /_/
+#    ___  __   _        ___            __      __
+#   / _ \/ /  (_)_ __  / _ )___  ___  / /____ / /________ ____
+#  / ___/ _ \/ /\ \ / / _  / _ \/ _ \/ __(_-</ __/ __/ _ `/ _ \
+# /_/  /_//_/_//_\_\ /____/\___/\___/\__/___/\__/_/  \_,_/ .__/
+#                                                       /_/
 #
-# PhiNix Nix system bootstrap
+# Phix system bootstrap
 #
 #   curl -fsSL https://raw.githubusercontent.com/lPhiNix/phix/main/bootstrap.sh | bash
 #
@@ -15,7 +15,7 @@
 #   - other Linux  -> home-manager switch --flake ~/.phix#standalone-<arch>
 #
 # The machine must already be installed: this never touches disks (no
-# partitioning). The host defaults to `hostname -s`. Repos are public but
+# partitioning). The host defaults to 'hostname -s'. Repos are public but
 # cloned over SSH, so a working GitHub SSH key is required.
 
 set -euo pipefail

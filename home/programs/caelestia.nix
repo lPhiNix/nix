@@ -27,7 +27,7 @@
         target = "graphical-session.target";
       };
 
-      # Puts `caelestia` on PATH: required by the Hyprland keybinds and by the
+      # Puts 'caelestia' on PATH: required by the Hyprland keybinds and by the
       # dynamic (Material You) theming.
       cli.enable = true;
     };

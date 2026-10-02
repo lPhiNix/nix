@@ -4,7 +4,7 @@
 # /_/|_/_//_\_\  \___/_/  \_,_/ .__/_//_/_/\__/___/
 #                            /_/
 # -------------------------------------------------
-# Graphics nix home pakages by lPhiNix
+# Graphics nix home packages by lPhiNix
 #
 {
   config,

@@ -7,7 +7,7 @@
 # Nix configuration by lPhiNix
 #
 {
-  description = "Phix: nix configuration by lPhiNix";
+  description = "Phix: Nix configuration by lPhiNix";
 
   inputs = {
     # Stable nixpkgs channel: basis of the system.
@@ -15,7 +15,7 @@
     # Unstable nixpkgs, exposed to packages via an overlay.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Home-manager, pinned to the same nixpkgs.
+    # Home Manager, pinned to the same nixpkgs.
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +65,7 @@
     hostNames = builtins.filter isHost (builtins.attrNames hostEntries);
 
     # Build a host: its own directory plus the shared system modules.
-    # No explicit `system` argument: it is derived from the host's own
+    # No explicit 'system' argument: it is derived from the host's own
     # nixpkgs.hostPlatform, which keeps this multi-architecture.
     mkHost = name:
       nixpkgs.lib.nixosSystem {
@@ -81,7 +81,7 @@
           # Shared system modules + myConfig translation.
           ./modules
 
-          # Home-manager integration and the home configuration.
+          # Home Manager integration and the home configuration.
           home-manager.nixosModules.home-manager
           ./home
         ];
@@ -125,14 +125,14 @@
         ];
       };
   in {
-    # Formatter used by `nix fmt` (Alejandra), per system.
+    # Formatter used by 'nix fmt' (Alejandra), per system.
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
 
-    # Custom packages from ./pkgs, runnable via `nix run .#name`.
+    # Custom packages from ./pkgs, runnable via 'nix run .#name'.
     packages = eachSystem (system:
       import ./pkgs nixpkgs.legacyPackages.${system}
       // {
-        # Automated installer, runnable via `nix run .#nixos-anywhere`.
+        # Automated installer, runnable via 'nix run .#nixos-anywhere'.
         nixos-anywhere = inputs.nixos-anywhere.packages.${system}.default;
       });
 
@@ -143,7 +143,8 @@
     nixosConfigurations = nixpkgs.lib.genAttrs hostNames mkHost;
 
     # Host-agnostic Home Manager configs, one per architecture:
-    #   home-manager switch --flake ~/.nix#standalone-x86_64-linux
+    #   home-manager switch --flake ~/.phix#standalone-x86_64-linux
+    #   home-manager switch --flake ~/.phix#standalone-aarch64-linux
     homeConfigurations = nixpkgs.lib.listToAttrs (map (system: {
         name = "standalone-${system}";
         value = mkStandalone system featuresBySystem.${system};

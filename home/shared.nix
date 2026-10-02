@@ -11,7 +11,7 @@
 # point (home/standalone.nix), so they can never drift apart.
 {inputs, ...}: {
   imports = [
-    # Dotfiles (the lPhiNix/dotfiles flake) provide their own HM module.
+    # Dotfiles (the lPhiNix/dotfiles flake) provide their own Home Manager module.
     inputs.dotfiles.homeManagerModules.default
 
     ./options.nix
