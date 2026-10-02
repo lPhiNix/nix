@@ -9,7 +9,7 @@
 #
 # Typed switches for the optional home package sets. The feature names live
 # here; inside NixOS they mirror the modules.*.enable booleans and in
-# standalone a config sets them directly (home/standalone/), so the same home
+# standalone a config sets them directly (home/standalone.nix), so the same home
 # modules work in both contexts.
 #
 {
